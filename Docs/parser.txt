@@ -1,0 +1,35 @@
+/* 
+echo > file.txt 'bonjour' > file_2.txt | wc -c
+
+liste1 :
+
+elem1 = echo 'bonjour'                          elem2 = wc -c
+    sousliste1:
+        elem1 = > file.txt elem2 = > file2.txt
+ */
+
+// liste chainee (maillons), pas de tokenisation, pas de pipe
+// on parcours la commande comme elle vient et on construit a partir de la
+
+// exemple: echo 'bonjour' > file.txt
+// liste chainee data, attribut char **tab_exec premiere element sera 'echo'
+// second element sera 'bonjour'
+
+// pas lexer, faire directement le parsing et remplir tab_exec
+
+faire un substr
+exemple: echo 'bonjour'
+
+data->start = i (0 ici)
+faire une boucle pour parcourir str jusqu'a trouver un caractere de syntax (espace, quote, pipe, redirections)
+une fois parcourus, definir data->end a cette emplacement
+faire un substr(data->str, data->start, data->end)
+le mettre dans tab_exec puis iterer
+
+    ensuite, definir les choses a faire en fonction du caractere trouver,
+    par exemple si on a une redirection, alors node->redirect.type = (letter)
+        pour la "letter", faire une fonction avec des enums (reprendre enum d'avant)
+            pour quand apres on fait les heredoc comptabilise le bon nombre etc.. pour les gerer avant l'execution
+
+    si on a un pipe, alors on passe au node suivant (on creer un nouveau node vide) que l'on va remplir par la sousliste1
+    

@@ -1,0 +1,32 @@
+
+voir pour créer une interface pour créer un lexer et voir par quelle approche commencer
+c'est a dire, soit split avec les espaces ou les guillemets en premier
+
+echo "bonjour    hello " | grep -c "h "
+
+// Etape 1: split espaces (faire une fonction pour compter apres l'espace entre guillemet)
+echo
+"bonjour
+hello
+"
+|
+grep
+-c
+"h
+"
+
+// Etape 1: split quotes
+// on trouve le premier guillemet, single_quote ou double_quote
+double_quote
+'echo '
+'bonjour    hello '
+' | grep -c '
+'h '
+
+// Etape 2: (split quotes) -> split espaces
+'echo'
+'bonjour     hello '
+'|'
+'grep'
+'-c'
+'h '

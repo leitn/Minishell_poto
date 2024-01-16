@@ -1,0 +1,27 @@
+TESTS:
+
+┌──(blax㉿kali)-[~/42-cursus/9-minishell/v1.7]
+└─$ echo"""bonjour                                                        127 ⨯
+dquote> 
+                                                                                
+┌──(blax㉿kali)-[~/42-cursus/9-minishell/v1.7]
+└─$ echo "bonjour                                                         130 ⨯
+dquote> 
+                                                                                
+┌──(blax㉿kali)-[~/42-cursus/9-minishell/v1.7]
+└─$ echo "bonjour'                                                        130 ⨯
+dquote> 
+                                                                                
+┌──(blax㉿kali)-[~/42-cursus/9-minishell/v1.7]
+└─$ echo "bonjour''                                                       130 ⨯
+dquote> 
+                                                                                
+┌──(blax㉿kali)-[~/42-cursus/9-minishell/v1.7]
+└─$ echo "bonjour''                                                       130 ⨯
+dquote> echo "bonjour" 
+dquote> 
+                                             
+Conclusion:
+// le token c'est bien tout sans espaces, meme avec les guillemets
+// on traite les quillemets dans le parser
+// et si on a une erreur de guillemets (dans le parser) alors "quote>"

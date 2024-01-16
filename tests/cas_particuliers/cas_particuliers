@@ -1,0 +1,48 @@
+┌──(blax㉿kali)-[~/42-cursus/9-minishell/v1.6]
+└─$ echo 'bon\'jour\"' 
+quote> 
+                                                                                                                                                                                                                                              
+┌──(blax㉿kali)-[~/42-cursus/9-minishell/v1.6]
+└─$ echo 'bon'jour\"'                                                                                                                                                                                                                   130 ⨯
+quote> 
+                                                                                                                                                                                                                                              
+┌──(blax㉿kali)-[~/42-cursus/9-minishell/v1.6]
+└─$ echo 'bon''jour\"'                                                                                                                                                                                                                  130 ⨯
+bonjour\"
+                                                                                                                                                                                                                                              
+┌──(blax㉿kali)-[~/42-cursus/9-minishell/v1.6]
+└─$ echo 'bon''''''''jour\"' 
+bonjour\"
+                                                                                                                                                                                                                                              
+┌──(blax㉿kali)-[~/42-cursus/9-minishell/v1.6]
+└─$ echo 'bon\'\'jour\"'     
+quote> 
+                                                                                                                                                                                                                                              
+┌──(blax㉿kali)-[~/42-cursus/9-minishell/v1.6]
+└─$ echo 'bon\' 'jour\"'                                                                                                                                                                                                                130 ⨯
+bon\ jour\"
+                                                                                                                                                                                                                                              
+┌──(blax㉿kali)-[~/42-cursus/9-minishell/v1.6]
+└─$ echo 'bon\''jour\"'  
+bon\jour\"
+                                                                                                                                                                                                                                              
+┌──(blax㉿kali)-[~/42-cursus/9-minishell/v1.6]
+└─$ echo 'bon'''''''' jour\"' 
+
+bon jour\"
+                                                                                                                                                                                                                                              
+┌──(blax㉿kali)-[~/42-cursus/9-minishell/v1.6]
+└─$ echo 'bon'''''' ''jour\"' 
+
+bon jour\"
+                                                                                                                                                                                                                                              
+┌──(blax㉿kali)-[~/42-cursus/9-minishell/v1.6]
+└─$ echo 'bon'''''' '       'jour\"'  
+
+bon  jour\"
+                                                                                                                                                                                                                                              
+┌──(blax㉿kali)-[~/42-cursus/9-minishell/v1.6]
+└─$ echo 'bon''' '       'jour\"'       
+
+quote> 
+                                    

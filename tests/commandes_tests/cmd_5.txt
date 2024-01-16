@@ -1,0 +1,12 @@
+echo $"HOME"
+echo "$HOME"
+echo '$HOME'
+echo $'HOME'
+echo $(HOME)
+echo $HOME
+ls $USER
+ls $"USER"
+ls "$USER"
+ls $'USER'
+ls '$USER'
+ls $(USER)
