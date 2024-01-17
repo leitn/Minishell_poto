@@ -6,11 +6,11 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:11:36 by edesaint          #+#    #+#             */
-/*   Updated: 2024/01/17 20:46:13 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/17 22:04:31 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 /* Crée un nouveau token avec les données fournies et le retourne. */
 t_token *create_token(t_data *data, int end)

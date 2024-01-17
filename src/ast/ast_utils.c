@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blax <blax@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 15:00:02 by blax              #+#    #+#             */
-/*   Updated: 2023/12/19 15:14:14 by blax             ###   ########.fr       */
+/*   Updated: 2024/01/17 22:26:37 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ bool is_redirection_token(t_state type)
     );
 }
 
-int compt_args(t_token *temp_token)
-{
-    int i;
+// int compt_args(t_token *temp_token)
+// {
+//     int i;
 
-    i = 0;
-    while (temp_token && temp_token->type_token != T_PIPE
-        && !is_redirection_token(temp_token->type_token))
-    {
-        i++;
-        temp_token = temp_token->next;
-    }
-    return (i);
-}
+//     i = 0;
+//     while (temp_token && temp_token->type_token != T_PIPE
+//         && !is_redirection_token(temp_token->type_token))
+//     {
+//         i++;
+//         temp_token = temp_token->next;
+//     }
+//     return (i);
+// }
 
 char **collect_args(t_token **token_ptr)
 {

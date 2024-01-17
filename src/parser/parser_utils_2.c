@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   parser_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:56:42 by blax              #+#    #+#             */
-/*   Updated: 2024/01/17 14:47:13 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/17 22:37:13 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void init_data(t_data *data, char *str)
 {
@@ -22,15 +22,24 @@ void init_data(t_data *data, char *str)
     data->str = trim_str(str);
 }
 
-// int compt_args(t_node *node)
-// {
-//     int i;
+bool in_node(t_data *data, t_token *token)
+{
+    return (token->id > data->start && token->id < data->end);
+}
 
-//     i = 0;
-//     while (node->tab_exec[i] != NULL)
-//         i++;
-//     return (i);
-// }
+int compt_args(t_data *data, t_token *token)
+{
+    int i;
+
+    i = 0;
+    while (token != NULL && in_node(data, token))
+    {
+        if (token->type_token == T_ARGUMENT)
+            i++;
+        token = token->next;
+    }
+    return (i);
+}
 
 // Fonction pour afficher le contenu de tous les nodes
 void print_nodes(t_node *node)

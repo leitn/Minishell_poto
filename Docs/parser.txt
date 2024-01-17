@@ -53,7 +53,7 @@ le mettre dans tab_exec puis iterer
 -------------------------------------------------------------------------------------------------
 
 
-ETAPE 1:
+ETAPE 1: OK
     delimiter la chaine avec un start et un end pour parser avant le pipe prochain
         ce qui nous permet de travailler sur un maillons a la fois
         utiliser la structure data pour cela (data->start, data->end)
@@ -71,7 +71,11 @@ faire des fonctions pour compter, par exemple pour definir le nombre d'option ou
 ETAPE 4:
 implementer unclosed quotes
 
-
+ETAPE 5:
+je pense qu'il va falloir rearranger les tokens en fonction des filtres (en gros les fusionner pour des cas
+particulier de quotes) car le lexer est une certaine implementation de base qui a ces propres defaults.
+Et ce serais beaucoup plus simple pour la suite, on aurais des tokens propres que l'on peut directement utiliser
+dans tab_exec
 
 
 -------------------------------------------------------------------------------------------------

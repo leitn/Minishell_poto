@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 08:31:10 by blax              #+#    #+#             */
-/*   Updated: 2024/01/17 21:19:04 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/17 22:37:15 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void update_is_quote(t_data *data, char letter);
 void verif_syntax(t_data *data);
 
 // parser.c
-void delimit_node(t_data *data, int *i);
+void delimit_node(t_data *data);
 bool skip_spaces(t_data *data, int *i);
 void parser(t_data *data);
 
@@ -96,7 +96,6 @@ void print_tokens(t_token *tokens);
 
 // lexer_utils_2.c
 t_stick_token	ft_type_char(char c);
-void	init_data(t_data *data, char *str);
 
 // ------------------ Parser --------------------
 
@@ -110,6 +109,11 @@ bool	is_pipe(const char *str);
 bool	is_option(const char *str);
 bool	is_redirection(const char *str);
 t_state	what_redirection(char *str);
+
+// parser_utils_2.c
+void	init_data(t_data *data, char *str);
+bool in_node(t_data *data, t_token *token);
+int compt_args(t_data *data, t_token *token);
 
 // parser_quote.c
 void parse_quote_tokens(t_data *data);

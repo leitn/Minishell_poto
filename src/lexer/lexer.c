@@ -6,11 +6,11 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 13:08:04 by blax              #+#    #+#             */
-/*   Updated: 2024/01/17 20:40:06 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/17 22:04:24 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 bool process_syntax(t_data *data, int *i)
 {
