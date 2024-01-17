@@ -14,16 +14,22 @@ SRC_FILES = off_main.c \
 			builtins/ft_export.c \
 			syntax/syntax.c \
 			syntax/syntax_utils.c \
+			lexer/lexer_utils_1.c \
+			lexer_token.c \
 			parser_utils.c \
+			parser/parser.c \
+			parser/parser_utils_1.c \
+			parser/parser_type_token.c \
+			parser/parser_quote.c \
+			lexer.c \
+			trim.c \
 			error.c \
 			free.c \
+			# parser.c \
 			# lexer/lexer.c \
 			# lexer/lexer_utils_1.c \
 			# lexer/lexer_utils_2.c \
 			# parser/parser.c \
-			# parser/parser_utils_1.c \
-			# parser/parser_type_token.c \
-			# parser/parser_quote.c \
 			# expander/expander.c \
 			# expander/expander_utils_1.c \
 			# expander/expander_utils_2.c \

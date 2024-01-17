@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enum.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blax <blax@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 16:22:37 by blax              #+#    #+#             */
-/*   Updated: 2023/12/19 16:27:00 by blax             ###   ########.fr       */
+/*   Updated: 2024/01/17 15:50:05 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef enum e_stick_token {
 	S_QUOTE,
 	D_QUOTE,
 	S_CHAR,
+	S_SYNTAX,
 	S_SPACE,
 	S_NULL
 }	t_stick_token;

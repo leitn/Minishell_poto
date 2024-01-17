@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blax <blax@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:10:16 by blax              #+#    #+#             */
-/*   Updated: 2023/12/18 09:15:49 by blax             ###   ########.fr       */
+/*   Updated: 2024/01/17 19:47:13 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void parse_quote_tokens(t_data *data)
     }
 }
 
+// X
+// il ne peut plus y avoir de null token car gerer en amont
 // C'est mieux de parcourir la liste des tokens
 // mais voici la fonction pour la modifier
 // et enlever les double quotes ou single quotes vides

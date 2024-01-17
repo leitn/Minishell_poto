@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parser_type_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blax <blax@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:18 by blax              #+#    #+#             */
-/*   Updated: 2023/12/18 09:06:55 by blax             ###   ########.fr       */
+/*   Updated: 2024/01/17 19:41:23 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Met à jour le type de token suivant le contexte actuel.
 void update_token_type(t_token *token, t_state *current_state)
 {
     if (is_command(token))
@@ -34,7 +33,6 @@ void update_token_type(t_token *token, t_state *current_state)
 		update_token_type_suite(token, current_state);
 }
 
-// Met à jour le type de token suivant le contexte actuel.
 void update_token_type_suite(t_token *token, t_state *current_state)
 {
 	if (*current_state == T_FILE)

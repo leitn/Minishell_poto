@@ -1,34 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   off_main.c                                         :+:      :+:    :+:   */
+/*   trim.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/16 18:26:34 by blax              #+#    #+#             */
-/*   Updated: 2024/01/17 21:30:16 by edesaint         ###   ########.fr       */
+/*   Created: 2024/01/17 10:38:30 by edesaint          #+#    #+#             */
+/*   Updated: 2024/01/17 10:39:58 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int				g_info;
-
-int main(int argc, char *argv[])
+int nb_trim_left(char *str)
 {
-    t_data data;
+    int i;
+    
+    i = 0;
+    while (is_space(str[i]))
+        i++;
+    return (i);
+}
 
-    if (argc < 2)
-        return (0);
-    init_data(&data, argv[1]);
-    verif_syntax(&data);
-    ft_lexer(&data);
-    parse_input(&data);
-    print_tokens(data.token);
-    // parse_input(data);
-    // expand_tokens(data);
-    // build_ast(tree, data);
-    // print_ast(tree);
-    // free_data(&data);
-    return (0);
+int nb_trim_right(char *str)
+{
+    int i;
+    
+    i = ft_strlen(str) - 1;
+    while (i >= 0 && is_space(str[i]))
+        i--;
+    return (++i);
+}
+
+char *trim_str(char *str)
+{
+    int start;
+    int end;
+    
+    start = nb_trim_left(str);
+    end = nb_trim_right(str);
+    return (ft_substr(str, start, end));
 }

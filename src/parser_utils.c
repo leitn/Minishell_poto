@@ -6,18 +6,20 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:56:42 by blax              #+#    #+#             */
-/*   Updated: 2024/01/16 20:25:19 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/17 14:47:13 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/* Initialise la structure 'data' avec la chaîne de caractères donnée. */
 void init_data(t_data *data, char *str)
 {
     data->node = NULL;
-    data->str = str;
-    // data->str = ft_substr(str, data->start, ft_end_string(str));
+    data->nb_tokens = 0;
+    data->token = NULL;
+    data->type_quote = '\0';
+    data->in_quote = 0;
+    data->str = trim_str(str);
 }
 
 // int compt_args(t_node *node)
