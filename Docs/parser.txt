@@ -7,6 +7,19 @@ demander a chatgpt:
 A faire soi-meme:
     - mettre a jour les valeurs d'espaces
 
+--------------------------------------------------------------------------
+pote a boris (enfant)
+test pour la commande cd, si on creer un fichier dans un dossier
+    puis que l'on supprime le dossier
+    => de mettre a jour la variable path (celle duplique pour nos besoins)
+test pour la commande cd, si on fait: unset HOME (doit supprimer la variable HOME de notre path)
+    => gerer ce cas ou la variable HOME n'existe plus
+test pour les pipes (petit programme pour taper automatiquement "echo bonjour" 2000 fois),
+    et si on creer plus de 1024 fd, le programme segfault
+=> de faire fd[IN] et fd[OUT] pour gerer le multipipe
+
+--------------------------------------------------------------------------
+
 /* 
 echo > file.txt 'bonjour' > file_2.txt | wc -c
 

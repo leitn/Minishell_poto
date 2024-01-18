@@ -6,17 +6,19 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 09:33:24 by blax              #+#    #+#             */
-/*   Updated: 2024/01/17 22:37:08 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/18 12:55:28 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void delimit_node(t_data *data)
+bool delimit_node(t_data *data)
 {
     t_token *token;
 
     token = data->token;
+    if (token == NULL)
+        return (false);
     data->start = token->id;
     while (token->next != NULL)
     {
@@ -24,28 +26,42 @@ void delimit_node(t_data *data)
             token = token->next;
     }
     data->end = token->id;
+    return (true);
 }
 
+// a fusionner avec le parser en cours
 void parse_input(t_data *data)
 {
     parse_quote_tokens(data);
     determine_token_types(data);
 }
 
-void parser(t_data *data)
+void init_nodes(t_data *data)
 {
-    t_token *token;
+    int nb_pipes;
     int i;
 
-    delimit_node(data);
-    token = data->token; // a revoir, il faut prendre data->start->token ou similaire
-    i = compt_args(data, token);
-    while (token != NULL)
+    i = 0;
+    nb_pipes = compt_pipes(data);
+    if (nb_pipes < 0)
+        ft_error("Il n'y a pas de pipes..");
+    while (i < nb_pipes)
     {
-        data->node = malloc(sizeof(t_node));
-        data->node->tab_exec[i] = token;
-        token = token->next;
+        add_node(data);
+        i++;
     }
+}
+
+void parser(t_data *data)
+{
+    init_nodes(data);
+}
+
+void parse_node(t_data *data)
+{
+    if (!delimit_node(data))
+        ft_error("Il n'y a pas de token !");
+    create_tab_exec(data);
 }
 
 // void parser(t_data *data)

@@ -15,11 +15,13 @@ SRC_FILES = off_main.c \
 			syntax/syntax.c \
 			syntax/syntax_utils.c \
 			lexer/lexer.c \
-			lexer_token.c \
+			lexer/lexer_token.c \
 			lexer/lexer_utils_1.c \
 			parser/parser.c \
 			parser/parser_utils_1.c \
 			parser/parser_utils_2.c \
+			parser/parser_node.c \
+			parser/parser_get_token.c \
 			parser/parser_type_token.c \
 			parser/parser_quote.c \
 			trim.c \

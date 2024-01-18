@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 13:08:04 by blax              #+#    #+#             */
-/*   Updated: 2024/01/17 22:04:24 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/18 12:13:23 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ bool is_empty_quotes(t_data *data, int *i)
     return (false);
 }
 
+// voir peut etre si il y a besoin de connaitre le nombre de double quotes d'affiler, alors 
+// rajouter un attribut a la structure data et incrementer dans ft_lexer
 /* Analyse la chaîne de caractères 'str' et remplit 'data' avec les tokens. */
 void ft_lexer(t_data *data)
 {

@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 08:31:10 by blax              #+#    #+#             */
-/*   Updated: 2024/01/17 22:37:15 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/18 22:38:40 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void update_is_quote(t_data *data, char letter);
 void verif_syntax(t_data *data);
 
 // parser.c
-void delimit_node(t_data *data);
+bool delimit_node(t_data *data);
 bool skip_spaces(t_data *data, int *i);
 void parser(t_data *data);
 
@@ -101,6 +101,7 @@ t_stick_token	ft_type_char(char c);
 
 // parser.c
 void	parse_input(t_data *data);
+void init_nodes(t_data *data);
 // bool is_empty_token(t_token *token);
 
 // parser_utils_1.c
@@ -113,7 +114,17 @@ t_state	what_redirection(char *str);
 // parser_utils_2.c
 void	init_data(t_data *data, char *str);
 bool in_node(t_data *data, t_token *token);
-int compt_args(t_data *data, t_token *token);
+int compt_args(t_data *data);
+int compt_pipes(t_data *data);
+
+// parser_node.c
+t_node *create_node(t_data *data);
+void add_node(t_data *data);
+
+// parser_get_token.c
+char *get_argument(t_token *token);
+char *get_command(t_data *data);
+char **create_tab_exec(t_data *data);
 
 // parser_quote.c
 void parse_quote_tokens(t_data *data);
