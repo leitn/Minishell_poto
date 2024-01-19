@@ -1,4 +1,10 @@
 
+Reinitialiser brave/chrome
+rm -rf ~/.config/google-chrome/Singleton*
+rm -rf ~/.config/BraveSoftware/Brave-Browser/Singleton*
+
+-------------------------------------------------------------------------
+
 On compte le nombre de pipes,
 puis on cree et on ajoute les nodes.
 On obtient ainsi: une liste de noeuds qui correspondent au maillon separer par les pipes.
@@ -11,6 +17,7 @@ pour au moins que ca segfault pas.
 
 
 -----------------------------------------------------------------------
+DISCUSSION ROBIN KERJEAN (le 18 au soir)
 
 modifier la structure redirections
 
@@ -39,3 +46,4 @@ pour faire cela: reprendre la meme facon de faire que pour exec_tab
 
  singletone (facon derive de faire une globale avec une variable static)
  variable globale (peut etre modifie de n'importe ou)=> pas secure
+ spike

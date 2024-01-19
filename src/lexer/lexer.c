@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 13:08:04 by blax              #+#    #+#             */
-/*   Updated: 2024/01/18 12:13:23 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:58:50 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,6 @@ bool process_quote(t_data *data, int *i)
         (*i)++;
     }
     return (true);
-}
-
-bool is_empty_quotes(t_data *data, int *i)
-{
-    if (is_double_symbol(data, *i, '\'') || \
-        is_double_symbol(data, *i, '"'))
-    {
-        *i = *i + 2;
-        return (true);
-    }
-    return (false);
 }
 
 // voir peut etre si il y a besoin de connaitre le nombre de double quotes d'affiler, alors 

@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:56:42 by blax              #+#    #+#             */
-/*   Updated: 2024/01/18 12:26:22 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:29:26 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 void init_data(t_data *data, char *str)
 {
+    data->start = 0;
+    data->end = 0;
     data->node = NULL;
     data->nb_tokens = 0;
     data->nb_nodes = 0;
-    data->node = NULL;
     data->token = NULL;
+    data->is_space = false;
     data->type_quote = '\0';
     data->in_quote = 0;
     data->str = trim_str(str);
@@ -26,7 +28,7 @@ void init_data(t_data *data, char *str)
 
 bool in_node(t_data *data, t_token *token)
 {
-    return (token->id > data->start && token->id < data->end);
+    return (token->id >= data->start && token->id <= data->end);
 }
 
 int compt_args(t_data *data)
@@ -40,15 +42,22 @@ int compt_args(t_data *data)
         return (-1);
     while (token != NULL)
     {
-        if (in_node(data, token) && \
-            (token->type_token == T_ARGUMENT || token->type_token == T_COMMAND))
+        if (in_node(data, token))
         {
-            i++;
+            if (token->type_token == T_ARGUMENT || token->type_token == T_COMMAND)
+                i++;
         }
         token = token->next;
     }
     return (i);
 }
+
+// void node_suiv(t_data *data, t_token *token)
+// {
+//     if (!delimit_node(data, token))
+//         ft_error("Il n'y a pas de token !");
+//     get_end_token(data, token);
+// }
 
 int compt_pipes(t_data *data)
 {
@@ -66,24 +75,4 @@ int compt_pipes(t_data *data)
         token = token->next;
     }
     return (i);
-}
-
-// Fonction pour afficher le contenu de tous les nodes
-void print_nodes(t_node *node)
-{
-    int i;
-
-    i = 0;
-    while (node != NULL)
-	{
-        printf("Token %d:\n", node->id);
-        while (node->tab_exec[i])
-        {
-            printf("arg %d: %s\n", i, node->tab_exec[i]);
-            i++;
-        }
-        i = 0;
-        printf("\n");
-        node = node->next;
-    }
 }

@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 08:31:10 by blax              #+#    #+#             */
-/*   Updated: 2024/01/18 22:38:40 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:19:44 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@
 
 extern int g_info;
 
+// transform_enum.c
+t_stick_token ft_type_char(char c);
+char *transform_enum_type_token(t_state num_c);
+char *transform_enum_quote(t_stick_token num_c);
+char *transform_enum_type_node(t_type_node num_c);
+
 //builtins.c
 void	ft_echo(char **argv);
 void	ft_env(char **envp);
@@ -55,8 +61,7 @@ void update_is_quote(t_data *data, char letter);
 void verif_syntax(t_data *data);
 
 // parser.c
-bool delimit_node(t_data *data);
-bool skip_spaces(t_data *data, int *i);
+bool delimit_node(t_data *data, t_token *token);
 void parser(t_data *data);
 
 // trim.c
@@ -80,6 +85,9 @@ void ft_lexer(t_data *data);
 bool process_string(t_data *data, int *i);
 bool process_quote(t_data *data, int *i);
 bool process_syntax(t_data *data, int *i);
+
+// lexer_utils.c
+bool skip_spaces(t_data *data, int *i);
 bool is_empty_quotes(t_data *data, int *i);
 
 // lexer_token.c
@@ -89,19 +97,15 @@ void add_token(t_data *data, int end);
 void process_for_token(t_data *data, int *i);
 // void lexer_node(t_data *data, t_node *node);
 
-// lexer_utils_1.c
-char *transform_enum_type_token(t_state num_c);
-char *transform_enum_quote(t_stick_token num_c);
+// lexer_print.c
 void print_tokens(t_token *tokens);
-
-// lexer_utils_2.c
-t_stick_token	ft_type_char(char c);
 
 // ------------------ Parser --------------------
 
 // parser.c
-void	parse_input(t_data *data);
+// void	parse_input(t_data *data);
 void init_nodes(t_data *data);
+bool fill_nodes(t_data *data);
 // bool is_empty_token(t_token *token);
 
 // parser_utils_1.c
@@ -114,17 +118,24 @@ t_state	what_redirection(char *str);
 // parser_utils_2.c
 void	init_data(t_data *data, char *str);
 bool in_node(t_data *data, t_token *token);
+// void node_suiv(t_data *data, t_token *token);
 int compt_args(t_data *data);
 int compt_pipes(t_data *data);
+
+// parser_print.c
+void print_tab_exec(t_node *node);
+void print_redir(t_node *node);
+void print_nodes(t_data *data);
 
 // parser_node.c
 t_node *create_node(t_data *data);
 void add_node(t_data *data);
 
 // parser_get_token.c
-char *get_argument(t_token *token);
-char *get_command(t_data *data);
-char **create_tab_exec(t_data *data);
+char *get_argument(t_data *data, t_token *token);
+char *get_command(t_token *token);
+char **create_tab_exec(t_data *data, int nb_args);
+char **init_tab_exec(t_data *data);
 
 // parser_quote.c
 void parse_quote_tokens(t_data *data);

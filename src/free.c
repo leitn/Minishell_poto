@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 12:33:07 by blax              #+#    #+#             */
-/*   Updated: 2024/01/16 21:30:50 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:51:05 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,18 @@ void free_data(t_data *data)
         free_nodes(data->node);
         free(data);
     }
+}
+
+// free les doubles tableau de char (comme tab_exec)
+void	ft_free(char **s, int i)
+{
+	while (i-- > 0)
+	{
+		if (s[i])
+		{
+			free (s[i]);
+			s[i] = NULL;
+		}
+	}
+	free (s);
 }

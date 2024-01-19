@@ -6,34 +6,56 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 09:33:24 by blax              #+#    #+#             */
-/*   Updated: 2024/01/18 12:55:28 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:17:24 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-bool delimit_node(t_data *data)
+t_token *get_end_token(t_data *data)
 {
     t_token *token;
 
     token = data->token;
+    if (!token)
+        return (NULL);
+    while (token && token->id != data->end)
+        token = token->next;
+    if (token && token->id == data->end)
+        return (token);
+    return (NULL);
+}
+
+// t_token *get_first_token(t_data *data)
+// {
+//     t_token *token;
+
+//     token = data->token;
+//     if (!token)
+//         return (NULL);
+//     while (token->next && token->id != data->end)
+//         token = token->next;
+//     if (!token->next)
+//         return (NULL);
+//     if (token->id == data->end)
+//         return (token->next);
+// }
+
+bool delimit_node(t_data *data, t_token *token)
+{
     if (token == NULL)
         return (false);
     data->start = token->id;
-    while (token->next != NULL)
+    while (token != NULL)
     {
-        if (token->type_token != T_PIPE)
-            token = token->next;
+        if (token->type_token == T_PIPE)
+        {
+            data->end = token->id;
+            return (true);
+        }
+        token = token->next;
     }
-    data->end = token->id;
     return (true);
-}
-
-// a fusionner avec le parser en cours
-void parse_input(t_data *data)
-{
-    parse_quote_tokens(data);
-    determine_token_types(data);
 }
 
 void init_nodes(t_data *data)
@@ -52,46 +74,32 @@ void init_nodes(t_data *data)
     }
 }
 
+bool fill_nodes(t_data *data)
+{
+    t_node *node;
+    t_token *token;
+
+    node = data->node;
+    while (node)
+    {
+        token = get_end_token(data);
+        if (token->id != 0)
+            token = token->next;
+        if (!delimit_node(data, token))
+            return ("erreur");
+        init_tab_exec(data);
+        // init_redir(data);
+        // node_suiv(data);
+        // token = token->next;
+        node = node->next;
+    }
+    return (true);
+}
+
 void parser(t_data *data)
 {
+    parse_quote_tokens(data);
+    determine_token_types(data);
     init_nodes(data);
+    fill_nodes(data);
 }
-
-void parse_node(t_data *data)
-{
-    if (!delimit_node(data))
-        ft_error("Il n'y a pas de token !");
-    create_tab_exec(data);
-}
-
-// void parser(t_data *data)
-// {
-//     char letter;
-//     int i;
-//     int j;
-//     int k;
-//     int start_token;
-//     int end_token;
-
-//     start_token = 0;
-//     end_token = 0;
-//     i = 0;
-//     j = 0;
-//     k = 0;
-//     delimit_node(data, &i);
-//     skip_spaces(data, &j);
-//     while (data->str[j])
-//     {
-//         start = i;
-//         letter = data->str[j];
-//         if (letter == ' ' || letter == '\'' || letter == '"' || letter == '>' || letter == '<' || letter == '|')
-//         {
-//             end = j;
-//             data->node = malloc(sizeof(t_node));
-//             // data->node = malloc(sizeof(char) * (end - start + 1));
-//             data->node->tab_exec[k] = ft_substr(data->str, start, end);
-//             k++;
-//         }
-//         j++;
-//     }
-// }

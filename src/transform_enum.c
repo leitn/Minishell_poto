@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils_1.c                                    :+:      :+:    :+:   */
+/*   transform_enum.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 08:55:05 by blax              #+#    #+#             */
-/*   Updated: 2024/01/17 20:51:23 by edesaint         ###   ########.fr       */
+/*   Created: 2024/01/19 11:37:17 by edesaint          #+#    #+#             */
+/*   Updated: 2024/01/19 15:24:47 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 /* Détermine le type de caractère (guillemet, espace, etc.) pour le lexer. */
 t_stick_token ft_type_char(char c)
@@ -27,18 +27,6 @@ t_stick_token ft_type_char(char c)
         return (S_NULL);
     else
         return (S_CHAR);
-}
-
-bool skip_spaces(t_data *data, int *i)
-{
-    int tmp_i;
-
-    tmp_i = *i;
-    while (data->str[*i] && is_space(data->str[*i]))
-        (*i)++;
-    if (*i > tmp_i)
-        return (true);
-    return (false);
 }
 
 // Pour l'affichage (print et debug)
@@ -84,23 +72,13 @@ char *transform_enum_quote(t_stick_token num_c)
         return ("S_CHAR");
 }
 
-// Fonction pour afficher le contenu de tous les tokens
-void print_tokens(t_token *tokens)
+char *transform_enum_type_node(t_type_node num_c)
 {
-    while (tokens != NULL)
-	{
-        printf("Token %d:\n", tokens->id);
-        printf("Token->str: %s\n", tokens->str);
-        printf("Token->type_str: %s\n", transform_enum_quote(tokens->type_str));
-        printf("Token->type_rstick: %s\n", transform_enum_quote(tokens->type_rstick));
-        printf("Token->type_lstick: %s\n", transform_enum_quote(tokens->type_lstick));
-        printf("Token->is_space: %i\n", tokens->is_space);
-        printf("Token->type_token: %s\n", transform_enum_type_token(tokens->type_token));
-        // printf("Token->prev: %p\n", tokens->prev);
-        // printf("Token->current: %p\n", tokens);
-        // printf("Token->next: %p\n", tokens->next);
-        printf("\n");
-        tokens = tokens->next;
-    }
-	// printf("Token: %p\n", tokens);
+    if (num_c == N_CMD)
+        return ("N_CMD");
+    else if (num_c == N_BUILTIN)
+        return ("N_BUILTIN");
+    else if (num_c == N_ERROR)
+        return ("N_ERROR");
+    return (NULL);
 }

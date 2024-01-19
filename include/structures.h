@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 16:19:02 by blax              #+#    #+#             */
-/*   Updated: 2024/01/18 22:07:31 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/19 12:00:35 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ typedef struct s_token
 	t_stick_token	type_rstick;
 	t_stick_token	type_lstick;
 	t_state			type_token;
+	//int nb_space;
+	// int nb_two_double_quotes;
+	// int nb_two_single_quotes;
 	struct s_token	*next;
     struct s_token	*prev;
 }				t_token;
@@ -55,12 +58,12 @@ typedef struct s_token
 typedef struct s_node
 {
     int                 id;
-    t_state             type;
+    t_type_node         type;
     char                **tab_exec;
     char			    *redir_in;
 	char				*redir_out;
 	char				*redir_append;
-	char				*heredoc;
+	char				*redir_heredoc;
 	struct s_node       *next;
 } t_node;
 

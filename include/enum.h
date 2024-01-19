@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 16:22:37 by blax              #+#    #+#             */
-/*   Updated: 2024/01/17 15:50:05 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:33:35 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ typedef enum e_ast_node_type {
     AST_PIPE,
     AST_REDIRECT
 } t_ast_node_type;
+
+typedef enum e_type_node {
+	N_CMD,
+	N_BUILTIN,
+	N_ERROR
+} t_type_node;
 
 typedef enum e_state {
 	T_COMMAND,
