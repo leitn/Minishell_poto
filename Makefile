@@ -20,10 +20,12 @@ SRC_FILES = off_main.c \
 			lexer/lexer_utils.c \
 			lexer/lexer_print.c \
 			parser/parser.c \
+			parser/parser_tab_exec.c \
+			parser_redir_utils.c \
 			parser/parser_utils_1.c \
 			parser/parser_utils_2.c \
 			parser/parser_node.c \
-			parser/parser_get_token.c \
+			parser/parser_getters.c \
 			parser/parser_type_token.c \
 			parser/parser_quote.c \
 			parser/parser_print.c \

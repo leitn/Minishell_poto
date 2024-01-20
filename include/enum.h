@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 16:22:37 by blax              #+#    #+#             */
-/*   Updated: 2024/01/19 11:33:35 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/20 21:30:13 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef enum e_state {
 	T_OPTION,
 	T_ARGUMENT,
 	T_PIPE,
-	T_NOREDIR,
+	// T_NOREDIR,
 	T_NULL,
 	T_FILE,
 	T_REDIR_IN,      // <

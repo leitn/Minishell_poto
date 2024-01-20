@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:56:42 by blax              #+#    #+#             */
-/*   Updated: 2024/01/19 15:29:26 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/20 15:17:22 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,15 @@ int compt_args(t_data *data)
     return (i);
 }
 
-// void node_suiv(t_data *data, t_token *token)
-// {
-//     if (!delimit_node(data, token))
-//         ft_error("Il n'y a pas de token !");
-//     get_end_token(data, token);
-// }
-
-int compt_pipes(t_data *data)
+int compt_nodes(t_data *data)
 {
     t_token *token;
     int i;
 
-    i = 0;
     token = data->token;
     if (token == NULL)
         return (-1);
+    i = 1;
     while (token != NULL)
     {
         if (token->type_token == T_PIPE)

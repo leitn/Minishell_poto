@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 08:31:10 by blax              #+#    #+#             */
-/*   Updated: 2024/01/19 15:19:44 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/20 15:25:28 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,6 @@ bool check_after(t_data *data, int i);
 void update_is_quote(t_data *data, char letter);
 void verif_syntax(t_data *data);
 
-// parser.c
-bool delimit_node(t_data *data, t_token *token);
-void parser(t_data *data);
-
 // trim.c
 int nb_trim_left(char *str);
 int nb_trim_right(char *str);
@@ -103,10 +99,7 @@ void print_tokens(t_token *tokens);
 // ------------------ Parser --------------------
 
 // parser.c
-// void	parse_input(t_data *data);
-void init_nodes(t_data *data);
-bool fill_nodes(t_data *data);
-// bool is_empty_token(t_token *token);
+void parser(t_data *data);
 
 // parser_utils_1.c
 bool	is_command(t_token *token);
@@ -118,9 +111,8 @@ t_state	what_redirection(char *str);
 // parser_utils_2.c
 void	init_data(t_data *data, char *str);
 bool in_node(t_data *data, t_token *token);
-// void node_suiv(t_data *data, t_token *token);
 int compt_args(t_data *data);
-int compt_pipes(t_data *data);
+int compt_nodes(t_data *data);
 
 // parser_print.c
 void print_tab_exec(t_node *node);
@@ -130,12 +122,20 @@ void print_nodes(t_data *data);
 // parser_node.c
 t_node *create_node(t_data *data);
 void add_node(t_data *data);
+void init_nodes(t_data *data);
+bool fill_nodes(t_data *data);
+bool delimit_node(t_data *data, t_token *token);
 
-// parser_get_token.c
+// parser_getters.c
+t_token *get_first_token(t_data *data, t_token *token);
+t_token *get_end_token(t_data *data, t_token *token);
 char *get_argument(t_data *data, t_token *token);
 char *get_command(t_token *token);
-char **create_tab_exec(t_data *data, int nb_args);
-char **init_tab_exec(t_data *data);
+t_token *next_arg(t_data *data, t_token *token);
+
+// parser_tab_exec.c
+char **create_tab_exec(t_data *data, t_token *token, int nb_args);
+char **init_tab_exec(t_data *data, t_token *token);
 
 // parser_quote.c
 void parse_quote_tokens(t_data *data);

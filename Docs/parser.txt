@@ -7,6 +7,19 @@ demander a chatgpt:
 A faire soi-meme:
     - mettre a jour les valeurs d'espaces
 
+considerer les option comme des arguments
+dans le parser: (BASH DOCUMENTATION DIRECT)
+page 39
+Dans les descriptions suivantes, si le numéro du descripteur de fichier est omis et que le premier caractère de l'opérateur de
+redirection est '<', la redirection fait référence à l'entrée standard (descripteur de fichier 0). Si le premier caractère de l'opérateur de
+redirection est '>', la redirection fait référence à la sortie standard (descripteur de fichier 1).
+Le mot qui suit l'opérateur de redirection dans les descriptions suivantes, sauf indication contraire, est soumis à l'expansion
+des accolades, à l'expansion des tildes, à l'expansion des paramètres, à la substitution de commandes, à l'expansion arithmétique,
+à la suppression des guillemets, à l'expansion du nom de fichier et au fractionnement de mots
+S'il s'étend sur plusieurs mots, Bash signale une erreur
+
+L’échec de l’ouverture ou de la création d’un fichier entraîne l’échec de la redirection
+
 --------------------------------------------------------------------------
 pote a boris (enfant)
 test pour la commande cd, si on creer un fichier dans un dossier
