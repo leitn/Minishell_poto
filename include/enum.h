@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enum.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wnguyen <wnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 16:22:37 by blax              #+#    #+#             */
-/*   Updated: 2024/01/20 21:30:13 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/21 15:11:53 by wnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,11 @@ typedef enum e_redir {
 	IN = 0
 }	t_redir;
 
-typedef enum e_ast_node_type {
-    AST_COMMAND,
-    AST_PIPE,
-    AST_REDIRECT
-} t_ast_node_type;
-
 typedef enum e_type_node {
 	N_CMD,
 	N_BUILTIN,
 	N_ERROR
-} t_type_node;
+}		t_type_node;
 
 typedef enum e_state {
 	T_COMMAND,

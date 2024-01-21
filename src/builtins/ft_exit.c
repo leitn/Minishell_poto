@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blax <blax@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wnguyen <wnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 21:22:06 by wnguyen           #+#    #+#             */
-/*   Updated: 2023/12/25 08:06:43 by blax             ###   ########.fr       */
+/*   Updated: 2024/01/21 14:33:31 by wnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ static int	is_valid_exit_num(const char *str)
 
 static void	exit_with_error(char *arg)
 {
-	ft_putstr_fd("minishell: exit: ", 2);
-	ft_putstr_fd(arg, 2);
-	ft_putendl_fd(": numeric argument required", 2);
+	ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+	ft_putstr_fd(arg, STDERR_FILENO);
+	ft_putendl_fd(": numeric argument required", STDERR_FILENO);
 	exit(2);
 }
 
@@ -46,17 +46,17 @@ void	ft_exit(char **args)
 {
 	int	exit_status;
 
-	ft_putendl_fd("exit", 2);
+	exit_status = 0;
 	if (!args[1])
-		exit(g_info);
+		exit(exit_status);
 	if (!is_valid_exit_num(args[1]))
 		exit_with_error(args[1]);
 	exit_status = ft_atoi(args[1]);
 	if (args[2])
 	{
-		ft_putendl_fd("minishell: exit: too many arguments", 2);
-		g_info = 1;
+		ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);
 		return ;
 	}
+	ft_putendl_fd("exit", STDOUT_FILENO);
 	exit(exit_status);
 }
