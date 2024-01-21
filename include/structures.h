@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 16:19:02 by blax              #+#    #+#             */
-/*   Updated: 2024/01/19 12:00:35 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/20 16:26:27 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_data
     bool            is_space;
     char            type_quote;
     char            in_quote;
+	int				lst_exit; //dernier statue de sortie
     char            *str;
     struct s_token	*token;
 	struct s_node	*node;

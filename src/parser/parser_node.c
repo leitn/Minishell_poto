@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:04:42 by edesaint          #+#    #+#             */
-/*   Updated: 2024/01/19 11:34:56 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/20 15:34:21 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,65 @@ void add_node(t_data *data)
             temp->next = new_node;
         }
     }
+}
+
+// c'est le premier token ou le premier token apres un pipe
+bool delimit_node(t_data *data, t_token *token)
+{
+    if (token == NULL)
+        return (false);
+    data->start = token->id;
+    while (token->next != NULL)
+    {
+        if (token->next->type_token == T_PIPE)
+        {
+            data->end = token->id;
+            return (true);
+        }
+        token = token->next;
+    }
+    if (!token->next)
+    {
+        data->end = token->id;
+        return (true);
+    }
+    return (true);
+}
+
+void init_nodes(t_data *data)
+{
+    int nb_nodes;
+    int i;
+
+    i = 0;
+    data->start = 0;
+    data->end = 0;
+    nb_nodes = compt_nodes(data);
+    if (nb_nodes < 0)
+        ft_error("Il n'y a pas de pipes..");
+    while (i < nb_nodes)
+    {
+        add_node(data);
+        data->nb_nodes++;
+        i++;
+    }
+}
+
+bool fill_nodes(t_data *data)
+{
+    t_node *node;
+    t_token *token;
+
+    node = data->node;
+    token = data->token;
+    while (node)
+    {
+        token = get_first_token(data, token);
+        if (!delimit_node(data, token))
+            return ("erreur");
+        node->tab_exec = init_tab_exec(data, token);
+        // init_redir(data);
+        node = node->next;
+    }
+    return (true);
 }

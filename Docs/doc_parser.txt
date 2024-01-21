@@ -47,3 +47,8 @@ pour faire cela: reprendre la meme facon de faire que pour exec_tab
  singletone (facon derive de faire une globale avec une variable static)
  variable globale (peut etre modifie de n'importe ou)=> pas secure
  spike
+
+--------------------------------------------------------------------------------------
+ DISCUSSION avec robin 20 JANVIER
+
+ voir mode interactif quand le heredoc, gestion des signals

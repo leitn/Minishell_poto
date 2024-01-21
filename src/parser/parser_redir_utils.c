@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser_redir_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 09:33:24 by blax              #+#    #+#             */
-/*   Updated: 2024/01/20 15:23:34 by edesaint         ###   ########.fr       */
+/*   Created: 2024/01/20 21:17:52 by edesaint          #+#    #+#             */
+/*   Updated: 2024/01/20 21:18:22 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void parser(t_data *data)
+bool is_redir(t_state type)
 {
-    parse_quote_tokens(data);
-    determine_token_types(data);
-    init_nodes(data);
-    fill_nodes(data);
+    return (
+        (type == T_REDIR_IN)
+        || (type == T_REDIR_OUT)
+        || (type == T_REDIR_APPEND)
+        || (type == T_REDIR_HEREDOC)
+    );
+}
+
+bool is_file_redir(t_token *token)
+{
+    if (!token || !token->next)
+        return (false);
+    if (is_redir(token->type_token) && token->next->type_token == T_FILE)
+        return (true);
+    return (false);
 }
