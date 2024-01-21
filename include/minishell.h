@@ -6,7 +6,7 @@
 /*   By: wnguyen <wnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 08:31:10 by blax              #+#    #+#             */
-/*   Updated: 2024/01/21 14:37:33 by wnguyen          ###   ########.fr       */
+/*   Updated: 2024/01/21 18:38:10 by wnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	ft_echo(t_node *node, t_env *env);
 void	ft_env(t_node *node, t_env *env);
 void	ft_pwd(t_node *node, t_env *env);
 int		is_valid_env_name(char *name);
-void	ft_unset(char **args, t_list **env);
-void	ft_exit(char **args);
+void	ft_unset(t_node *node, t_env *env);
+void	ft_exit(t_node *node, t_env *env);
 void	ft_export(char **args, t_list **env);
 
 // syntax_utils.c

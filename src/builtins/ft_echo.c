@@ -6,7 +6,7 @@
 /*   By: wnguyen <wnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 21:31:23 by wnguyen           #+#    #+#             */
-/*   Updated: 2024/01/21 15:29:12 by wnguyen          ###   ########.fr       */
+/*   Updated: 2024/01/21 17:33:22 by wnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ void	ft_echo(t_node *node, t_env *env)
 	(void)env;
 	i = 1;
 	n_option = 0;
-	while (node->tab_exec[i] && is_n_option(node->tab_exec[1]))
+	if (!node->tab_exec[1])
+		return (ft_putchar_fd('\n', STDOUT_FILENO));
+	while (node->tab_exec[i] && is_n_option(node->tab_exec[i]))
 	{
 		n_option = 1;
 		i++;

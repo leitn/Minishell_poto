@@ -6,69 +6,111 @@
 /*   By: wnguyen <wnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 10:04:08 by blax              #+#    #+#             */
-/*   Updated: 2024/01/21 15:17:55 by wnguyen          ###   ########.fr       */
+/*   Updated: 2024/01/21 18:46:04 by wnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-bool	is_builtin(t_node *node)
+void	verify_and_exec_builtin(t_node *node, t_env *env)
 {
-	if (!node->tab_exec || !node->tab_exec[0])
-		return (false);
-	if (strcmp(node->tab_exec[0], "echo") == 0
-		|| strcmp(node->tab_exec[0], "cd") == 0
-		|| strcmp(node->tab_exec[0], "pwd") == 0
-		|| strcmp(node->tab_exec[0], "export") == 0
-		|| strcmp(node->tab_exec[0], "unset") == 0
-		|| strcmp(node->tab_exec[0], "env") == 0
-		|| strcmp(node->tab_exec[0], "exit") == 0)
-		return (true);
-	return (false);
-}
-
-void	execute_builtin(t_node *node, t_env *env)
-{
-	if (strcmp(node->tab_exec[0], "echo") == 0)
+	if (!node || !node->tab_exec || !node->tab_exec[0] || node->type != N_CMD)
+		return (ft_putstr_fd("Invalid command\n", STDERR_FILENO),
+			exit(EXIT_FAILURE));
+	if (ft_strcmp(node->tab_exec[0], "echo") == 0)
 		ft_echo(node->tab_exec, env);
-	else if (strcmp(node->tab_exec[0], "cd") == 0)
+	else if (ft_strcmp(node->tab_exec[0], "cd") == 0)
 		ft_cd(node->tab_exec, env);
-	else if (strcmp(node->tab_exec[0], "pwd") == 0)
-		ft_pwd(node->tab_exec[0], env);
-	else if (strcmp(node->tab_exec[0], "export") == 0)
+	else if (ft_strcmp(node->tab_exec[0], "pwd") == 0)
+		ft_pwd(node->tab_exec, env);
+	else if (ft_strcmp(node->tab_exec[0], "export") == 0)
 		ft_export(node->tab_exec, env);
-	else if (strcmp(node->tab_exec[0], "unset") == 0)
+	else if (ft_strcmp(node->tab_exec[0], "unset") == 0)
 		ft_unset(node->tab_exec, env);
-	else if (strcmp(node->tab_exec[0], "env") == 0)
-		ft_env(node->tab_exec[0], env);
-	else if (strcmp(node->tab_exec[0], "exit") == 0)
-		ft_exit(node->tab_exec);
+	else if (ft_strcmp(node->tab_exec[0], "env") == 0)
+		ft_env(node->tab_exec, env);
+	else if (ft_strcmp(node->tab_exec[0], "exit") == 0)
+		ft_exit(node->tab_exec, env);
+	else
+		return ;
+	exit(EXIT_SUCCESS);
 }
 
-void	execute_command_node(t_node *node, t_env *env)
+void	setup_redirections(int *fd_in, int *fd_out, int is_last)
 {
-	char	*cmd;
-
-	if (!node || !node->tab_exec)
-		exit(EXIT_FAILURE);
-	cmd = node->tab_exec[0];
-	if (node->type == N_ERROR)
+	if (fd_in[0] != STDIN_FILENO)
 	{
-		ft_putstr_fd("Tentative d'exécution d'un type non-commande",
-			STDERR_FILENO);
-		return ;
+		if (dup2(fd_in[0], STDIN_FILENO) == -1)
+			(perror("dup2"), exit(EXIT_FAILURE));
+		close(fd_in[0]);
 	}
-	if (is_builtin(node))
-		execute_builtin(node, env);
+	if (!is_last)
+	{
+		close(fd_out[0]);
+		if (dup2(fd_out[1], STDOUT_FILENO) == -1)
+			(perror("dup2"), exit(EXIT_FAILURE));
+		close(fd_out[1]);
+	}
+}
+
+void	launch_command(t_node *node)
+{
+	if (execvp(node->tab_exec[0], node->tab_exec) == -1)
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(node->tab_exec[0], STDERR_FILENO);
+		ft_putstr_fd(": command not found\n", STDERR_FILENO);
+		exit(127);
+	}
+}
+
+void	execute_command(t_node *node, int *fd_in, int *fd_out, int is_last)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	if (pid == 0)
+	{
+		setup_redirections(fd_in, fd_out, is_last);
+		verify_and_exec_builtin(node, NULL);
+		launch_command(node);
+	}
 	else
 	{
-		if (fork() == 0)
+		if (fd_in[0] != STDIN_FILENO)
+			close(fd_in[0]);
+		if (!is_last)
 		{
-			execvp(cmd, node->tab_exec);
-			perror("execvp");
-			exit(EXIT_FAILURE);
+			close(fd_out[1]);
+			fd_in[0] = fd_out[0];
 		}
-		else
-			wait(NULL);
+		waitpid(pid, NULL, 0);
 	}
 }
+
+void	execute_command_node(t_node *node, t_env *env, int *fd_in, int is_last)
+{
+	int	fd_out[2];
+
+	if (!is_last && pipe(fd_out) == -1)
+	{
+		perror("pipe");
+		exit(EXIT_FAILURE);
+	}
+	verify_execute_builtin(node, env);
+	execute_command(node, fd_in, fd_out, is_last);
+	if (!is_last)
+	{
+		close(fd_out[0]);
+		if (fd_in[0] != STDIN_FILENO)
+			close(fd_in[0]);
+	}
+	fd_in[0] = fd_out[0];
+}
+
+//s'assurer de bien initialiser fd_in[0] a STDIN_FILENO

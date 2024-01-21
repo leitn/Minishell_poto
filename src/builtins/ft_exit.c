@@ -6,7 +6,7 @@
 /*   By: wnguyen <wnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 21:22:06 by wnguyen           #+#    #+#             */
-/*   Updated: 2024/01/21 14:33:31 by wnguyen          ###   ########.fr       */
+/*   Updated: 2024/01/21 18:37:42 by wnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,13 @@ static void	exit_with_error(char *arg)
 	exit(2);
 }
 
-void	ft_exit(char **args)
+void	ft_exit(t_node *node, t_env *env)
 {
+	char	**args;
 	int	exit_status;
 
+	(void)env;
+	args = node->tab_exec;
 	exit_status = 0;
 	if (!args[1])
 		exit(exit_status);
