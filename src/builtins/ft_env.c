@@ -6,24 +6,24 @@
 /*   By: wnguyen <wnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 07:33:34 by wnguyen           #+#    #+#             */
-/*   Updated: 2023/11/12 07:40:23 by wnguyen          ###   ########.fr       */
+/*   Updated: 2024/01/21 14:32:09 by wnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_env(char **envp)
+void	ft_env(t_node *node, t_env *env)
 {
-	int	i;
+	t_env_link	*current;
 
-	i = 0;
-	while (envp[i])
+	(void)node;
+	current = env->first;
+	while (current)
 	{
-		if (ft_strchr(envp[i], '='))
-		{
-			ft_putstr_fd(envp[i], STDOUT_FILENO);
-			ft_putchar_fd('\n', STDOUT_FILENO);
-		}
-		i++;
+		ft_putstr_fd(current->name, STDOUT_FILENO);
+		ft_putchar_fd('=', STDOUT_FILENO);
+		ft_putstr_fd(current->content, STDOUT_FILENO);
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		current = current->next;
 	}
 }

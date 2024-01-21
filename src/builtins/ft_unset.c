@@ -6,87 +6,85 @@
 /*   By: wnguyen <wnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 20:21:48 by wnguyen           #+#    #+#             */
-/*   Updated: 2023/11/21 21:12:27 by wnguyen          ###   ########.fr       */
+/*   Updated: 2024/01/21 14:50:50 by wnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	is_valid_env_char(char c, int first_char)
-{
-	if (first_char)
-		return (ft_isalpha(c) || c == '_');
-	else
-		return (ft_isalnum(c) || c == '_');
-}
-
-int	is_valid_env_name(char *name)
+static int	is_valid_env_name(const char *str)
 {
 	int	i;
 
-	if (!name || !is_valid_env_char(name[0], 1))
+	i = 0;
+	if (!ft_isalpha(str[i]) && str[i] != '_')
 		return (0);
-	i = 1;
-	while (name[i])
+	i++;
+	while (str[i])
 	{
-		if (!is_valid_env_char(name[i], 0))
+		if (!ft_isalnum(str[i]) && str[i] != '_')
 			return (0);
 		i++;
 	}
 	return (1);
 }
 
-static int	env_cmp(const char *env_var, const char *var)
+static void	remove_env_link(t_env *env, t_env_link *link)
 {
-	int	i;
+	t_env_link	*current;
+	t_env_link	*previous;
 
-	i = 0;
-	while (env_var[i] && var[i] && env_var[i] == var[i])
-		i++;
-	if (var[i] == '\0' && (env_var[i] == '=' || env_var[i] == '\0'))
-		return (0);
-	return (1);
-}
-
-static void	unset_env_var(t_list **env, char *var)
-{
-	t_list	*prev;
-	t_list	*current;
-
-	prev = NULL;
-	current = *env;
+	current = env->first;
+	previous = NULL;
 	while (current)
 	{
-		if (env_cmp(current->content, var) == 0)
+		if (current == link)
 		{
-			if (prev)
-				prev->next = current->next;
+			if (previous)
+				previous->next = current->next;
 			else
-				*env = current->next;
-			ft_lstdelone(current, free);
-			break ;
+				env->first = current->next;
+			free(link->name);
+			free(link->content);
+			free(link);
+			return ;
 		}
-		prev = current;
+		previous = current;
 		current = current->next;
 	}
 }
 
-void	ft_unset(char **args, t_list **env)
+void	unset_error(char *arg)
 {
-	int	i;
+	ft_putstr_fd("minishell: unset: `", STDERR_FILENO);
+	ft_putstr_fd(arg, STDERR_FILENO);
+	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+}
 
-	if (!args || !*env)
-		return ;
+void	ft_unset(t_node *node, t_env *env)
+{
+	t_env_link	*current;
+	t_env_link	*next;
+	char		**args;
+	int			i;
+
+	args = node->tab_exec;
 	i = 1;
-	while (args[1])
+	while (args[i])
 	{
-		if (is_valid_env_name(args[i]))
-			unset_env_var(env, args[i]);
-		else
+		if (!is_valid_env_name(args[i]))
 		{
-			ft_putstr_fd("minishell: unset: `", 2);
-			ft_putstr_fd(args[i], 2);
-			ft_putstr_fd("': not a valid identifier\n", 2);
+			unset_error(args[i]);
+			i++;
+			continue ;
+		}
+		current = env->first;
+		while (current)
+		{
+			next = current->next;
+			if (strcmp(current->name, args[i]) == 0)
+				remove_env_link(env, current);
+			current = next;
 		}
 		i++;
 	}

@@ -3,107 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blax <blax@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wnguyen <wnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 10:04:08 by blax              #+#    #+#             */
-/*   Updated: 2024/01/15 17:27:47 by blax             ###   ########.fr       */
+/*   Updated: 2024/01/21 15:17:55 by wnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Fonction pour exécuter un nœud de commande
-void execute_command_node(t_ast_node *node)
+bool	is_builtin(t_node *node)
 {
-    char *cmd;
-
-    cmd = node->content.command.args[0];
-    if (!cmd)
-        exit(EXIT_FAILURE);
-    if (node->type != AST_COMMAND)
-    {
-        fprintf(stderr, "Tentative d'exécution d'un type de nœud non-commande\n");
-        return ;
-    }
-    if (fork() == 0)
-    {
-        execvp(cmd, node->content.command.args);
-        perror("execvp");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        wait(NULL); // Attendre que le processus enfant se termine
-    }
+	if (!node->tab_exec || !node->tab_exec[0])
+		return (false);
+	if (strcmp(node->tab_exec[0], "echo") == 0
+		|| strcmp(node->tab_exec[0], "cd") == 0
+		|| strcmp(node->tab_exec[0], "pwd") == 0
+		|| strcmp(node->tab_exec[0], "export") == 0
+		|| strcmp(node->tab_exec[0], "unset") == 0
+		|| strcmp(node->tab_exec[0], "env") == 0
+		|| strcmp(node->tab_exec[0], "exit") == 0)
+		return (true);
+	return (false);
 }
 
-int	execute_redir_node(t_tree *tree, t_ast_node *node)
+void	execute_builtin(t_node *node, t_env *env)
 {
-	int		ret;
-    t_state redir_type;
-    int save_fd[2];
-
-    save_fd[IN] = STDIN_FILENO;
-    save_fd[OUT] = STDOUT_FILENO;
-    redir_type = node->content.redirect.type;
-    if (redir_type == T_REDIR_IN)
-        ret = apply_redir_in(tree, node);
-    else if (redir_type == T_REDIR_OUT)
-        ret = apply_redir_out(tree, node);
-    else if (redir_type == T_REDIR_APPEND)
-        ret = apply_redir_append(tree, node);
-    // else if (redir_type == T_REDIR_HEREDOC)
-    //     return (apply_redir_heredoc(tree, node));
-    if (ret == FAILURE)
-        return (FAILURE);
-    execute_ast(tree, node->content.redirect.child);
-	restore_std(tree, save_fd);
-
-	return (SUCCESS);
+	if (strcmp(node->tab_exec[0], "echo") == 0)
+		ft_echo(node->tab_exec, env);
+	else if (strcmp(node->tab_exec[0], "cd") == 0)
+		ft_cd(node->tab_exec, env);
+	else if (strcmp(node->tab_exec[0], "pwd") == 0)
+		ft_pwd(node->tab_exec[0], env);
+	else if (strcmp(node->tab_exec[0], "export") == 0)
+		ft_export(node->tab_exec, env);
+	else if (strcmp(node->tab_exec[0], "unset") == 0)
+		ft_unset(node->tab_exec, env);
+	else if (strcmp(node->tab_exec[0], "env") == 0)
+		ft_env(node->tab_exec[0], env);
+	else if (strcmp(node->tab_exec[0], "exit") == 0)
+		ft_exit(node->tab_exec);
 }
 
-// Fonction pour exécuter un nœud de pipe
-int execute_pipe_node(t_tree *tree, t_ast_node *node)
+void	execute_command_node(t_node *node, t_env *env)
 {
-    int fds[2];
+	char	*cmd;
 
-    if (pipe(fds) == -1)
-        ft_error("pipe");
-    if (fork() == 0)
-    {
-        close(fds[0]);
-        dup2(fds[1], STDOUT_FILENO);
-        execute_ast(tree, node->content.pipe.left);
-        close(fds[1]);
-        return (SUCCESS);
-    }
-    else
-    {
-        close(fds[1]);
-        if (fork() == 0)
-        {
-            dup2(fds[0], STDIN_FILENO);
-            execute_ast(tree, node->content.pipe.right);
-            close(fds[0]);
-            return (SUCCESS);
-        }
-    }
-    close(fds[0]);
-    wait(NULL);
-    wait(NULL);
-    return (SUCCESS);
-}
-
-// Fonction pour exécuter l'AST
-void execute_ast(t_tree *tree, t_ast_node *ast)
-{
-    if (ast == NULL)
-        return ;
-
-    if (ast->type == AST_COMMAND)
-        execute_command_node(ast);
-    else if (ast->type == AST_PIPE)
-        execute_pipe_node(tree, ast);
-    else if (ast->type == AST_REDIRECT)
-        execute_redir_node(tree, ast);
+	if (!node || !node->tab_exec)
+		exit(EXIT_FAILURE);
+	cmd = node->tab_exec[0];
+	if (node->type == N_ERROR)
+	{
+		ft_putstr_fd("Tentative d'exécution d'un type non-commande",
+			STDERR_FILENO);
+		return ;
+	}
+	if (is_builtin(node))
+		execute_builtin(node, env);
+	else
+	{
+		if (fork() == 0)
+		{
+			execvp(cmd, node->tab_exec);
+			perror("execvp");
+			exit(EXIT_FAILURE);
+		}
+		else
+			wait(NULL);
+	}
 }

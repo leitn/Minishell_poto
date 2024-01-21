@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wnguyen <wnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 08:31:10 by blax              #+#    #+#             */
-/*   Updated: 2024/01/20 15:25:28 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/21 14:37:33 by wnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ char *transform_enum_quote(t_stick_token num_c);
 char *transform_enum_type_node(t_type_node num_c);
 
 //builtins.c
-void	ft_echo(char **argv);
-void	ft_env(char **envp);
-void	ft_pwd(void);
+void	ft_cd(t_node *node, t_env *env);
+void	ft_echo(t_node *node, t_env *env);
+void	ft_env(t_node *node, t_env *env);
+void	ft_pwd(t_node *node, t_env *env);
 int		is_valid_env_name(char *name);
 void	ft_unset(char **args, t_list **env);
 void	ft_exit(char **args);

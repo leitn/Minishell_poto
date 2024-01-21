@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blax <blax@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wnguyen <wnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 23:20:39 by blax              #+#    #+#             */
-/*   Updated: 2024/01/15 18:56:53 by blax             ###   ########.fr       */
+/*   Updated: 2024/01/21 15:37:54 by wnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int apply_redir_in(t_tree *tree, t_ast_node *node)
     int fd;
     char *name;
 
-    name = node->content.redirect.file;
     fd = open(name, O_RDONLY);
     if (fd < 0)
         return (ft_error("open"));
