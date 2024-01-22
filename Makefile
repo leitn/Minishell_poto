@@ -7,12 +7,6 @@ OBJ_TEST_DIR = obj_tests/
 
 SRC_FILES = off_main.c \
 			transform_enum.c \
-			builtins/ft_echo.c \
-			builtins/ft_env.c \
-			builtins/ft_exit.c \
-			builtins/ft_pwd.c \
-			builtins/ft_unset.c \
-			builtins/ft_export.c \
 			syntax/syntax.c \
 			syntax/syntax_utils_1.c \
 			syntax/syntax_utils_2.c \
@@ -33,27 +27,21 @@ SRC_FILES = off_main.c \
 			parser/parser_type_token.c \
 			parser/parser_quote.c \
 			parser/parser_print.c \
+			expander/expander.c \
+			expander/expander_utils_1.c \
+			expander/expander_utils_2.c \
 			trim.c \
 			error.c \
-			free.c \
-			# parser.c \
-			# lexer/lexer.c \
-			# lexer/lexer_utils_1.c \
-			# lexer/lexer_utils_2.c \
-			# parser/parser.c \
-			# expander/expander.c \
-			# expander/expander_utils_1.c \
-			# expander/expander_utils_2.c \
-			# ast/ast.c \
-			# ast/ast_utils.c \
-			# ast/create_node.c \
-			# ast/update_ast.c \
-			# ast/print_ast.c \
-			# ast/free_ast.c \
+			free/free.c \
+			free/free_2.c \
+			# builtins/ft_echo.c \
+			# builtins/ft_env.c \
+			# builtins/ft_exit.c \
+			# builtins/ft_pwd.c \
+			# builtins/ft_unset.c \
+			# builtins/ft_export.c \
 			# exec/exec.c \
 			# exec/file_redir.c \
-			error.c \
-			free.c # main.c
 
 # TEST_FILES = common/ts_common.c \
 # 			lexer/ts_1.c \

@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 12:04:42 by edesaint          #+#    #+#             */
-/*   Updated: 2024/01/22 17:18:01 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/22 19:29:49 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,7 @@ bool fill_nodes(t_data *data)
         if (!delimit_node(data, token))
             return ("erreur");
         node->tab_exec = init_tab_exec(data, token);
-        if (!node->tab_exec)
-            return ("erreur");
-        if (!init_redir(node, token))
+        if (!init_redir(data, node, token))
             return ("erreur");
         node = node->next;
     }

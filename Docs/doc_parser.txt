@@ -3,12 +3,16 @@ Reinitialiser brave/chrome
 rm -rf ~/.config/google-chrome/Singleton*
 rm -rf ~/.config/BraveSoftware/Brave-Browser/Singleton*
 --------------------------------------------------------------------------
+a voir, les noms des fichiers ne sont pas bons
+--------------------------------------------------------------------------
 logique execution des process des commandes
 si une seule commande (un node),
  si ce n'est pas un builtin, alors on execute un process enfant
  si builtin dans le process parent
 si plusieurs commandes (plusieurs nodes)
  tout est executer dans les processus enfant
+--------------------------------------------------------------------------
+les builtins doivent print une erreur si fail
 
 -------------------------------------------------------------------------
 Si on trouve un de ces tokens on envoie un message d'erreur

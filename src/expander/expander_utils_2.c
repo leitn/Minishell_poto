@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blax <blax@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:27:15 by blax              #+#    #+#             */
-/*   Updated: 2023/12/25 08:21:18 by blax             ###   ########.fr       */
+/*   Updated: 2024/01/22 21:05:17 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char* append_variable_value(char *result, const char *varName)
     if (varValue)
     {
         newLength = ft_strlen(result) + ft_strlen(varValue) + 1;
-        newResult = malloc(newLength);
+        newResult = malloc(sizeof(char) * newLength);
         ft_strlcpy(newResult, result, newLength);
         ft_strlcat(newResult, varValue, newLength);
         return (newResult);

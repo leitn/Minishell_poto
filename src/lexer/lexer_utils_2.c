@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 11:23:27 by edesaint          #+#    #+#             */
-/*   Updated: 2024/01/22 11:38:14 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/22 21:49:38 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_token_add_back(t_token **token, t_token *newlist)
 	if (*token)
 	{
 		l = ft_token_last(*token);
-		l -> next = newlist;
+		l->next = newlist;
 	}
 	else
 		*token = newlist;

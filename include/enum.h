@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 16:22:37 by blax              #+#    #+#             */
-/*   Updated: 2024/01/22 17:56:59 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/22 21:27:59 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,11 @@ typedef enum e_type_node {
 }		t_type_node;
 
 typedef enum e_state {
+	T_NULL,
 	T_COMMAND,
 	T_OPTION,
 	T_ARGUMENT,
 	T_PIPE,
-	// T_NOREDIR,
-	T_NULL,
 	T_FILE,
 	T_REDIR_IN,      // <
     T_REDIR_OUT,     // >
@@ -44,12 +43,12 @@ typedef enum e_state {
 }	t_state;
 
 typedef enum e_stick_token {
+	S_NULL,
 	S_QUOTE,
 	D_QUOTE,
 	S_CHAR,
 	S_SYNTAX,
 	S_SPACE,
-	S_NULL
 }	t_stick_token;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 08:31:10 by blax              #+#    #+#             */
-/*   Updated: 2024/01/22 17:58:42 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/22 22:32:44 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	ft_cd(t_node *node, t_env *env);
 void	ft_echo(t_node *node, t_env *env);
 void	ft_env(t_node *node, t_env *env);
 void	ft_pwd(t_node *node, t_env *env);
-int		is_valid_env_name(char *name);
 void	ft_unset(t_node *node, t_env *env);
 void	ft_exit(t_node *node, t_env *env);
 void	ft_export(char **args, t_list **env);
@@ -82,10 +81,13 @@ char *trim_str(char *str);
 // ----------------------------------------------------------------------
 
 // free.c
-// void free_tab_exec(t_node *node);
+void free_tab_exec(char **tab_exec);
 void free_nodes(t_node *node);
-void free_data(t_data *data);
 void free_tokens(t_token *token);
+void free_data(t_data *data);
+
+// free_2.c
+void free_all(t_data *data);
 
 // error.c
 bool ft_error(char *str);
@@ -93,12 +95,13 @@ void ft_error_2(char *str);
 
 // ------------------ Lexer --------------------
 // lexer.c
-void ft_lexer(t_data *data);
+bool ft_lexer(t_data *data);
 bool process_string(t_data *data, int *i);
 bool process_quote(t_data *data, int *i);
 bool process_syntax(t_data *data, int *i);
 
 // lexer_utils_1.c
+int set_len(t_data *data, int end);
 bool skip_spaces(t_data *data, int *i);
 bool is_empty_quotes(t_data *data, int *i);
 
@@ -108,8 +111,9 @@ t_token	*ft_token_last(t_token *token);
 void	ft_token_iter(t_token *token, void (*f)(void *));
 
 // lexer_token.c
-t_token *create_token(t_data *data, int end);
-void add_token(t_data *data, int end);
+t_stick_token set_type_lstick(t_data *data);
+t_token *create_token(t_data *data, int end, int len);
+bool add_token(t_data *data, int end, int len);
 
 void process_for_token(t_data *data, int *i);
 // void lexer_node(t_data *data, t_node *node);
@@ -149,11 +153,12 @@ bool fill_nodes(t_data *data);
 bool delimit_node(t_data *data, t_token *token);
 
 // parser_redir.c
-bool is_redir_append(t_token *token);
-bool is_redir_out(t_token *token);
-bool is_redir_in(t_token *token);
-// bool is_redir_heredoc(t_token *token);
-bool init_redir(t_node *node, t_token *token);
+bool is_redir_append(t_token *token, char *name);
+bool is_redir_out(t_token *token, char *name);
+bool is_redir_in(t_token *token, char *name);
+// bool is_redir_heredoc(t_token *token, char *name);
+bool update_redir(t_node *node, t_token *token);
+bool init_redir(t_data *data, t_node *node, t_token *token);
 
 // parser_redir_utils.c
 bool is_redir(t_state type);
@@ -181,8 +186,9 @@ void determine_next_token_type(t_state type_token, t_state *cur_state);
 // ------------------ Expander --------------------
 
 // expander.c
+bool is_expandable(t_token *token);
 void expand_tokens(t_data *data);
-// void replace_token_str(t_token *token, char *new_value);
+void replace_token_str(t_token *token, char *new_value);
 // void print_expanded_tokens(t_token *tokens);
 
 // expander_utils_1.c
@@ -194,20 +200,5 @@ char* process_text_until_next_dollar(const char **ptr, char *result);
 char* append_variable_value(char *result, const char *varName);
 char* extract_var_name(const char **ptr);
 char* copy_until_char(char *dest, const char *src, char delimiter);
-
-// // file_redirect.c
-
-// int apply_redir_in(t_tree *tree, t_ast_node *node);
-// int apply_redir_append(t_tree *tree, t_ast_node *node);
-// int apply_redir_heredoc(t_tree *tree, t_ast_node *node);
-// int apply_redir_out(t_tree *tree, t_ast_node *node);
-// void restore_std(t_tree *tree, int save_fd[2]);
-
-// // exec.c
-
-// void execute_ast(t_tree *tree, t_ast_node *ast);
-// int execute_pipe_node(t_tree *tree, t_ast_node *node);
-// int	execute_redir_node(t_tree *tree, t_ast_node *node);
-// void execute_command_node(t_ast_node *node);
 
 #endif

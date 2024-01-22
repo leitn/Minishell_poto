@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 18:26:34 by blax              #+#    #+#             */
-/*   Updated: 2024/01/22 17:13:02 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/22 22:03:41 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ int main(int argc, char *argv[])
         free_tokens(data.token);
         ft_error_2("syntax_erreur");
     }
+    expand_tokens(&data);
     parser(&data);
-    // print_tokens(data.token);
+    print_tokens(data.token);
     print_nodes(&data);
-    // expand_tokens(data);
     // build_ast(tree, data);
     // print_ast(tree);
     // free_data(&data);
+    free_all(&data);
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 13:08:04 by blax              #+#    #+#             */
-/*   Updated: 2024/01/19 11:58:50 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/22 21:54:10 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,10 @@ bool process_quote(t_data *data, int *i)
 // voir peut etre si il y a besoin de connaitre le nombre de double quotes d'affiler, alors 
 // rajouter un attribut a la structure data et incrementer dans ft_lexer
 /* Analyse la chaîne de caractères 'str' et remplit 'data' avec les tokens. */
-void ft_lexer(t_data *data)
+bool ft_lexer(t_data *data)
 {
     int i;
+    int len_str;
     
     i = 0;
     while (data->str[i])
@@ -81,8 +82,12 @@ void ft_lexer(t_data *data)
             if (!process_quote(data, &i))
                 if (!process_string(data, &i))
                     process_syntax(data, &i);
-            add_token(data, i);
+            len_str = set_len(data, i);
+            if (len_str == -1)
+                return (false);
+            add_token(data, i, len_str);
         }
         data->nb_tokens++;
     }
+    return (true);
 }

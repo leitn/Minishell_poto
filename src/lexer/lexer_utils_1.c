@@ -6,11 +6,21 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:50:34 by edesaint          #+#    #+#             */
-/*   Updated: 2024/01/22 11:32:47 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/22 21:44:02 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int set_len(t_data *data, int end)
+{
+    int len;
+    
+    len = end - data->start;
+    if (len <= 0)
+        return (-1);
+    return (len);
+}
 
 bool skip_spaces(t_data *data, int *i)
 {

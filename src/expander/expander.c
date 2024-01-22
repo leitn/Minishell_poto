@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blax <blax@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 23:04:42 by blax              #+#    #+#             */
-/*   Updated: 2023/12/18 09:29:15 by blax             ###   ########.fr       */
+/*   Updated: 2024/01/22 21:00:06 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,32 @@ int g_last_exit_status = 0;
 //     return (g_last_exit_status); // Remplacez par votre propre mécanisme de stockage
 // }
 
+bool is_expandable(t_token *token)
+{
+    if (!token)
+        return (NULL);
+    return (token->type_str == D_QUOTE || token->type_str == S_CHAR);
+}
+
 void expand_tokens(t_data *data)
 {
-    t_token *current_token;
+    t_token *cur_token;
     char *expanded_value;
 
-    current_token = data->token;
-    while (current_token != NULL)
+    cur_token = data->token;
+    while (cur_token)
     {
-        while (current_token && is_empty_token(current_token))
-            current_token = current_token->next;
-        if (current_token
-            && (current_token->type_str == D_QUOTE
-            || current_token->type_str == S_CHAR))
+        if (is_expandable(cur_token))
         {
-            expanded_value = expand_variables(current_token->str);
+            expanded_value = expand_variables(cur_token->str);
             if (expanded_value)
             {
-                replace_token_str(current_token, expanded_value);
+                replace_token_str(cur_token, expanded_value);
                 free(expanded_value); // Je ne pense pas qu'il doit etre free
             }
         }
-        if (current_token)
-            current_token = current_token->next;
+        if (cur_token)
+            cur_token = cur_token->next;
     }
 }
 

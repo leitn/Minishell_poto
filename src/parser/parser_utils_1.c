@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:04:32 by blax              #+#    #+#             */
-/*   Updated: 2024/01/22 12:47:13 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/22 21:46:20 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@ bool is_command(bool *is_cmd, t_state cur_state)
 		*is_cmd = true;
 		return (true);
 	}
-	// if (token->id > 0)
-	// {
-	// 	if (token->prev->type_token == T_PIPE)
-	// 		return (true);
-	// }
 	return (false);
 }
 
