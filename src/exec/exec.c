@@ -6,7 +6,7 @@
 /*   By: wnguyen <wnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 10:04:08 by blax              #+#    #+#             */
-/*   Updated: 2024/01/21 18:46:04 by wnguyen          ###   ########.fr       */
+/*   Updated: 2024/01/22 15:17:27 by wnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	execute_command(t_node *node, int *fd_in, int *fd_out, int is_last)
 	if (pid == 0)
 	{
 		setup_redirections(fd_in, fd_out, is_last);
+		if (strcmp(node->tab_exec[0], "exit") == 0 && !is_last)
+			exit(atoi(node->tab_exec[1]));
 		verify_and_exec_builtin(node, NULL);
 		launch_command(node);
 	}
@@ -102,7 +104,6 @@ void	execute_command_node(t_node *node, t_env *env, int *fd_in, int is_last)
 		perror("pipe");
 		exit(EXIT_FAILURE);
 	}
-	verify_execute_builtin(node, env);
 	execute_command(node, fd_in, fd_out, is_last);
 	if (!is_last)
 	{
