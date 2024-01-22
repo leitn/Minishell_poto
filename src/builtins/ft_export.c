@@ -3,60 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blax <blax@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wnguyen <wnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 21:00:04 by wnguyen           #+#    #+#             */
-/*   Updated: 2023/12/25 08:18:37 by blax             ###   ########.fr       */
+/*   Updated: 2024/01/21 14:58:30 by wnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	add_or_update_env_var(t_list **env, char *var)
+static void	print_env_var(t_env *env)
 {
-	t_list	*current;
-	char	*name;
-	int		name_len;
-	char	*equal_sign;
+	t_env_link	*current;
 
-	equal_sign = ft_strchr(var, '=');
-	if (equal_sign == NULL)
-		ft_error_2("ft_strchr(var, '=) renvoie NULL");
-	name_len = equal_sign - var;
-	name = ft_substr(var, 0, name_len);
-	current = *env;
+	current = env->first;
 	while (current)
 	{
-		if (ft_strncmp(current->content, name, name_len) == 0)
-		{
-			free(current->content);
-			current->content = ft_strdup(var);
-			free(name);
-			return ;
-		}
+		ft_putstr_fd(current->name, STDOUT_FILENO);
+		ft_putchar_fd('=', STDOUT_FILENO);
+		ft_putstr_fd(current->content, STDOUT_FILENO);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 		current = current->next;
 	}
-	ft_lstadd_back(env, ft_lstnew(ft_strdup(var)));
-	free(name);
 }
 
-void	ft_export(char **args, t_list **env)
+void	ft_export(t_node *node, t_env *env)
 {
-	int	i;
+	int			i;
+	char		*name;
+	char		*content;
+	t_env_link	*current;
 
-	if (!args[1])
-		ft_error_2("aucun argument fourni");
 	i = 1;
-	while (args[i])
+	if (!node->tab_exec[1])
+		print_env_var(env);
+	while (node->tab_exec[i])
 	{
-		if (is_valid_env_name(args[i]))
-			add_or_update_env_var(env, args[i]);
-		else
+		if (is_valid_env_name(node->tab_exec[i]))
 		{
-			ft_putstr_fd("minishell: export: `", 2);
-			ft_putstr_fd(args[i], 2);
-			ft_putstr_fd("': not a valid identifier\n", 2);
+			name = get_env_name(node->tab_exec[i]);
+			content = get_env_content(node->tab_exec[i]);
+			update_env_var(env, name, content);
+			free(name);
+			free(content);
 		}
+		else
+			unset_error(node->tab_exec[i]);
 		i++;
 	}
 }
+
