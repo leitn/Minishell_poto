@@ -14,14 +14,18 @@ SRC_FILES = off_main.c \
 			builtins/ft_unset.c \
 			builtins/ft_export.c \
 			syntax/syntax.c \
-			syntax/syntax_utils.c \
+			syntax/syntax_utils_1.c \
+			syntax/syntax_utils_2.c \
+			syntax/syntax_utils_3.c \
 			lexer/lexer.c \
 			lexer/lexer_token.c \
-			lexer/lexer_utils.c \
+			lexer/lexer_utils_1.c \
+			lexer/lexer_utils_2.c \
 			lexer/lexer_print.c \
 			parser/parser.c \
 			parser/parser_tab_exec.c \
-			parser_redir_utils.c \
+			parser/parser_redir.c \
+			parser/parser_redir_utils.c \
 			parser/parser_utils_1.c \
 			parser/parser_utils_2.c \
 			parser/parser_node.c \

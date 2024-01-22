@@ -8,6 +8,8 @@ A faire soi-meme:
     - mettre a jour les valeurs d'espaces
 
 considerer les option comme des arguments
+dans init_redir -> voir les interactions entre les redir_in et le heredoc, est ce un remplacement de l'entree standard ?
+
 dans le parser: (BASH DOCUMENTATION DIRECT)
 page 39
 Dans les descriptions suivantes, si le numéro du descripteur de fichier est omis et que le premier caractère de l'opérateur de

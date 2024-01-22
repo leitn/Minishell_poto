@@ -2,9 +2,43 @@
 Reinitialiser brave/chrome
 rm -rf ~/.config/google-chrome/Singleton*
 rm -rf ~/.config/BraveSoftware/Brave-Browser/Singleton*
+--------------------------------------------------------------------------
+logique execution des process des commandes
+si une seule commande (un node),
+ si ce n'est pas un builtin, alors on execute un process enfant
+ si builtin dans le process parent
+si plusieurs commandes (plusieurs nodes)
+ tout est executer dans les processus enfant
 
 -------------------------------------------------------------------------
+Si on trouve un de ces tokens on envoie un message d'erreur
+"minishell> reserved word
+(a implementer dans le parser, en verifiant que chaque token->str est different):
+! case coproc do done elif else esac fi for function if in select then until while { } time [[ ]]
+awk
 
+ce cas ci ne fonctionne pas au niveau des redirections:
+./minishell "echo |>ouou "
+A REVOIR
+-------------------------------------------------------------------------
+
+cas du sujet:
+exit 5 | exit 6
+echo $?
+
+si tu es dans le dossier
+et que tu supprime le dossier
+il ne faut pas qu'il crash
+
+edesaint@bess-f2r5s4:~/42-cursus/final_minishell$ env -i bash
+edesaint@bess-f2r5s4:/mnt/nfs/homes/edesaint/42-cursus/final_minishell$ env
+PWD=/mnt/nfs/homes/edesaint/42-cursus/final_minishell
+SHLVL=1
+_=/usr/bin/env
+
+env -i (doit tout supprimer ou laisser que quelques info)
+
+------------------------------------------------------------------------
 On compte le nombre de pipes,
 puis on cree et on ajoute les nodes.
 On obtient ainsi: une liste de noeuds qui correspondent au maillon separer par les pipes.
@@ -14,7 +48,8 @@ par exemple si on a: echo bonjour'|' et (ce nest pas le cas ici)
 mais supposons qu'on compte un pipe en trop, il faudras gerer le cas ou on s'est trompe
 pour au moins que ca segfault pas.
 
-
+Ce cas la ne fonctionne pas: a tester: cat <<< bonjour
+il faut ignorer le <<<
 
 -----------------------------------------------------------------------
 DISCUSSION ROBIN KERJEAN (le 18 au soir)

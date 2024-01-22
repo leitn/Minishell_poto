@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:11:36 by edesaint          #+#    #+#             */
-/*   Updated: 2024/01/17 22:04:31 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/21 13:38:37 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_token *create_token(t_data *data, int end)
     if (!token)
         return (NULL);
     token->id = data->nb_tokens;
-    token->type_token = T_NOREDIR;
+    token->type_token = T_NULL;
     token->str = ft_substr(data->str, (unsigned int) data->start, (size_t) len);
     token->type_str = ft_type_char(data->str[--end]);
     token->type_rstick = ft_type_char(data->str[++end]);

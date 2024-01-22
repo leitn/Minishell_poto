@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_get_token.c                                 :+:      :+:    :+:   */
+/*   parser_getters.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:22:11 by edesaint          #+#    #+#             */
-/*   Updated: 2024/01/20 15:23:54 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/22 12:00:33 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ t_token *get_end_token(t_data *data, t_token *token)
     return (NULL);
 }
 
-t_token *get_first_token(t_data *data, t_token *token)
+t_token *get_first_token(t_data *data, t_node *node, t_token *token)
 {
     if (!token)
         return (NULL);
-    if (data->end == 0)
-        return (token);
-    else
-        token = get_end_token(data, token);
-    if (token->next && token->next->type_token == T_PIPE)
-        token = token->next->next;
+    token = get_end_token(data, token);
+    if (node->id > 0)
+    {
+        if (token->next && token->next->type_token == T_PIPE)
+            token = token->next->next;
+    }
     if (!token)
         return (NULL);
     return (token);
@@ -40,32 +40,22 @@ t_token *get_first_token(t_data *data, t_token *token)
 
 char *get_command(t_token *token)
 {
-    if (token == NULL)
+    if (!token)
         return (NULL);
     if (token->type_token == T_COMMAND)
         return (token->str);
     return (NULL);
 }
 
-t_token *next_arg(t_data *data, t_token *token)
+char *get_argument(t_data *data, t_token *token)
 {
     if (!token)
         return (NULL);
-    while (token != NULL && token->id <= data->end)
+    while (token && token->id <= data->end)
     {
         if (token->type_token == T_ARGUMENT)
-        {
-            return (token);
-        }
+            return (token->str);
         token = token->next;
     }
     return (NULL);
-}
-
-char *get_argument(t_data *data, t_token *token)
-{
-    token = next_arg(data, token);
-    if (!token)
-        return (NULL);
-    return (token->str);
 }

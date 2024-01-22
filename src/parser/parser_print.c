@@ -6,7 +6,7 @@
 /*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:31:59 by edesaint          #+#    #+#             */
-/*   Updated: 2024/01/20 12:57:48 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/21 22:59:29 by edesaint         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void print_tab_exec(t_node *node)
     int i;
 
     i = 0;
+    if (!node->tab_exec || !node->tab_exec[0])
+        return ;
     printf("Cmd: %s\n", node->tab_exec[0]);
     while (node->tab_exec[i])
     {
