@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 08:31:10 by blax              #+#    #+#             */
-/*   Updated: 2024/01/23 12:10:53 by letnitan         ###   ########.fr       */
+/*   Updated: 2024/01/23 14:24:58 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ bool verif_syntax(t_token *token);
 int nb_trim_left(char *str);
 int nb_trim_right(char *str);
 char *trim_str(char *str);
+
+
 // ----------------------------------------------------------------------
 
 // free.c
@@ -105,6 +107,15 @@ void free_all(t_data *data);
 // error.c
 bool ft_error(char *str);
 void ft_error_2(char *str);
+
+// ------------------ Init --------------------
+
+// init_env.c
+t_env	*init_mini_env();
+t_env	*init_env(char **system_env);
+
+//init_data.c
+void	init_data(t_data *data, char *str, char **env);
 
 // ------------------ Lexer --------------------
 // lexer.c
@@ -148,7 +159,6 @@ bool is_file_redirection(t_state cur_state);
 bool is_type_redir(t_state type_token);
 
 // parser_utils_2.c
-void	init_data(t_data *data, char *str);
 bool in_node(t_data *data, t_token *token);
 int compt_args(t_data *data);
 int compt_nodes(t_data *data);

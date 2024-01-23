@@ -39,9 +39,13 @@ SRC_FILES = main.c \
 			builtins/ft_exit.c \
 			builtins/ft_pwd.c \
 			builtins/ft_unset.c \
-			# builtins/ft_export.c \
+			builtins/ft_export.c \
 			exec/exec.c \
-			exec/file_redir.c \
+			init/init_data.c \
+			init/init_env.c \
+			env/env_utils.c \
+			# builtins/ft_cd.c \
+			# exec/file_redir.c \
 
 # TEST_FILES = common/ts_common.c \
 # 			lexer/ts_1.c \

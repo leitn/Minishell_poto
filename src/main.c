@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:23:51 by blax              #+#    #+#             */
-/*   Updated: 2024/01/23 12:28:03 by letnitan         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:20:11 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void handle_signal(int signo)
     }
 }
 
-int ft_main(t_data *data, char *str)
+int ft_main(t_data *data, char *str, char **env)
 {
-    init_data(data, str);
+    init_data(data, str, env);
     if (!is_closed_quotes(data))
         ft_error_2("unclosed quotes");
     ft_lexer(data);
@@ -50,11 +50,11 @@ int ft_main(t_data *data, char *str)
     parser(data);
     print_tokens(data->token);
     print_nodes(data);
-	execute_command_node(data->node)
+	//execute_command_node(t_node *node, t_env *env, int *fd_in, int is_last); // <- BESOIN DE ENV POUR L'APPELER
     return (0);
 }
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[], char **env)
 {
     t_data data;
     char *command;
@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
         if (command && *command)
         {
             add_history(command);
-            ft_main(&data, command);
+            ft_main(&data, command, env);
             printf("\n");
         }
         free(command);

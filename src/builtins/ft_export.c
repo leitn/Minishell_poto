@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 21:00:04 by wnguyen           #+#    #+#             */
-/*   Updated: 2024/01/23 12:23:30 by letnitan         ###   ########.fr       */
+/*   Updated: 2024/01/23 13:32:14 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,18 @@ static void	print_env_var(t_env *env)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		current = current->next;
 	}
+}
+
+char	*get_env_content(const char *str)
+{
+	int		i;
+	char	*content;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	 content = ft_substr(str, i + 1, ft_strlen(str) - i);
+	return(content);
 }
 
 void	ft_export(t_node *node, t_env *env)

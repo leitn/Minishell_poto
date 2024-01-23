@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 10:04:08 by blax              #+#    #+#             */
-/*   Updated: 2024/01/23 12:25:35 by letnitan         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:25:57 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ void	verify_and_exec_builtin(t_node *node, t_env *env)
 		return (ft_putstr_fd("Invalid command\n", STDERR_FILENO),
 			exit(EXIT_FAILURE));
 	if (ft_strcmp(node->tab_exec[0], "echo") == 0)
-		ft_echo(node->tab_exec, env);
-	else if (ft_strcmp(node->tab_exec[0], "cd") == 0)
-		ft_cd(node->tab_exec, env);
+		ft_echo(node, env);
+	// else if (ft_strcmp(node->tab_exec[0], "cd") == 0)
+	// 	ft_cd(node, env);
 	else if (ft_strcmp(node->tab_exec[0], "pwd") == 0)
-		ft_pwd(node->tab_exec, env);
-	// else if (ft_strcmp(node->tab_exec[0], "export") == 0)
-	// 	ft_export(node->tab_exec, env);
+		ft_pwd(node, env);
+	else if (ft_strcmp(node->tab_exec[0], "export") == 0)
+		ft_export(node, env);
 	else if (ft_strcmp(node->tab_exec[0], "unset") == 0)
-		ft_unset(node->tab_exec, env);
+		ft_unset(node, env);
 	else if (ft_strcmp(node->tab_exec[0], "env") == 0)
-		ft_env(node->tab_exec, env);
+		ft_env(node, env);
 	else if (ft_strcmp(node->tab_exec[0], "exit") == 0)
-		ft_exit(node->tab_exec, env);
+		ft_exit(node, env);
 	else
 		return ;
 	exit(EXIT_SUCCESS);
@@ -114,5 +114,7 @@ void	execute_command_node(t_node *node, t_env *env, int *fd_in, int is_last)
 	}
 	fd_in[0] = fd_out[0];
 }
+
+void	start_execute(t_node *node);
 
 //s'assurer de bien initialiser fd_in[0] a STDIN_FILENO
