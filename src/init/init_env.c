@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:01:14 by letnitan          #+#    #+#             */
-/*   Updated: 2024/01/23 15:22:12 by letnitan         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:38:59 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ t_env_link *env_new_link(char *str)
 }
 
 //connects the nodes in the t_env struct
-void	env_connect_links(t_env_link *prev, t_env_link *now)
+void	env_connect_links(t_env_link *prev, t_env_link *current)
 {
 	if (prev)
-		prev->next = now;
-	if (now)
-		now->prev = prev;
+		prev->next = current;
+	if (current)
+		current->prev = prev;
 }
 
 // If env is unset, we create a basic env structure : _/, SHLVL, PWD + cur_path, PATH + execve paths
@@ -75,4 +75,31 @@ t_env *init_mini_env()
 // Pener a free env correctement, on a malloc CHAQUE t_env_link + une structure t_env
 
 
-t_env *init_env(char **system_env);
+t_env *init_env(char **system_env)
+{
+	t_env		*env_main;
+	t_env_link	*current;
+	t_env_link	*prev;
+
+	env_main = malloc(sizeof(t_env));
+	if (!env_main)
+		return (NULL);
+	env_main->len = 0;
+	current = env_new_link(system_env[env_main->len]); // faire le len++ dedans
+	env_main->first = current;
+	env_main->len++;
+	prev = current;
+	while (system_env[env_main->len])
+	{
+		current = env_new_link(system_env[env_main->len]);
+		if (prev)
+			env_connect_links(prev, current);
+		env_main->len++;
+		prev = prev->next;
+	}
+	env_main->last = current;
+	env_main->lst_exit = 0;
+	// update_shlvl(env_main);
+	return (env_main);
+
+}

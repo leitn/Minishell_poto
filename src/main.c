@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:23:51 by blax              #+#    #+#             */
-/*   Updated: 2024/01/23 15:20:11 by letnitan         ###   ########.fr       */
+/*   Updated: 2024/01/23 18:30:18 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void handle_signal(int signo)
     }
 }
 
-int ft_main(t_data *data, char *str, char **env)
+int ft_main(t_data *data, char *str, t_env *env)
 {
-    init_data(data, str, env);
+    init_data(data, str);
     if (!is_closed_quotes(data))
         ft_error_2("unclosed quotes");
     ft_lexer(data);
@@ -50,13 +50,14 @@ int ft_main(t_data *data, char *str, char **env)
     parser(data);
     print_tokens(data->token);
     print_nodes(data);
-	//execute_command_node(t_node *node, t_env *env, int *fd_in, int is_last); // <- BESOIN DE ENV POUR L'APPELER
+	execute_command_node(data->node, env);
     return (0);
 }
 
 int	main(int argc, char *argv[], char **env)
 {
     t_data data;
+    t_env *my_env;
     char *command;
 
     if (argc > 1)
@@ -66,6 +67,10 @@ int	main(int argc, char *argv[], char **env)
     }
     argv[0] = '\0';
     signal(SIGINT, handle_signal);
+    if (!env || !env[0])
+        my_env = init_mini_env();
+    else
+        my_env = init_env(env);
     while (1)
     {
         command = readline("minishell> ");
@@ -77,7 +82,7 @@ int	main(int argc, char *argv[], char **env)
         if (command && *command)
         {
             add_history(command);
-            ft_main(&data, command, env);
+            ft_main(&data, command, my_env);
             printf("\n");
         }
         free(command);

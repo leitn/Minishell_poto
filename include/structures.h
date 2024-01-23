@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 16:19:02 by blax              #+#    #+#             */
-/*   Updated: 2024/01/23 15:19:58 by letnitan         ###   ########.fr       */
+/*   Updated: 2024/01/23 18:12:52 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_env_link
 typedef struct s_env
 {
 	unsigned int		len; // Len de la chaine
-	unsigned int		lst_exit; // ? a sert a quoi ?
+	unsigned int		lst_exit; // ? a sert a quoi ? renommer exit status
 	struct s_env_link	*first;
 	struct s_env_link	*last;
 } t_env;
@@ -78,7 +78,7 @@ typedef struct s_data
 	char				in_quote;
 	int					lst_exit; // dernier statue de sortie
 	char				*str;
-	t_env				*env;
+	// t_env				*env;
 	struct s_token		*token;
 	struct s_node		*node;
 } t_data;

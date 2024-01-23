@@ -6,7 +6,7 @@
 /*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 08:31:10 by blax              #+#    #+#             */
-/*   Updated: 2024/01/23 14:24:58 by letnitan         ###   ########.fr       */
+/*   Updated: 2024/01/23 18:19:05 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_unset(t_node *node, t_env *env);
 void	ft_exit(t_node *node, t_env *env);
 void	ft_export(t_node *node, t_env *env);
 
-//ft_unet.c util
+//ft_unset.c util
 int	is_valid_env_name(const char *str);
 
 //env_utils.c
@@ -111,11 +111,13 @@ void ft_error_2(char *str);
 // ------------------ Init --------------------
 
 // init_env.c
+t_env_link	*env_new_link(char *str);
+void		env_connect_links(t_env_link *prev, t_env_link *current);
 t_env	*init_mini_env();
 t_env	*init_env(char **system_env);
 
 //init_data.c
-void	init_data(t_data *data, char *str, char **env);
+void	init_data(t_data *data, char *str);
 
 // ------------------ Lexer --------------------
 // lexer.c
@@ -206,6 +208,7 @@ void remove_quotes(char *input, char type_quote);
 void update_token_type(t_token *token, bool *is_cmd, t_state cur_state);
 void	determine_token_types(t_data *data);
 void determine_next_token_type(t_state type_token, t_state *cur_state);
+
 // ------------------ Expander --------------------
 
 // expander.c
@@ -223,5 +226,11 @@ char* process_text_until_next_dollar(const char **ptr, char *result);
 char* append_variable_value(char *result, const char *varName);
 char* extract_var_name(const char **ptr);
 char* copy_until_char(char *dest, const char *src, char delimiter);
+
+
+// ------------------ EXEC --------------------
+//exec.c
+void	execute_command_node(t_node *node, t_env *env);
+void	verify_and_exec_builtin(t_node *node, t_env *env, int pid);
 
 #endif
