@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wnguyen <wnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 10:04:08 by blax              #+#    #+#             */
-/*   Updated: 2024/01/22 15:17:27 by wnguyen          ###   ########.fr       */
+/*   Updated: 2024/01/23 12:25:35 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	verify_and_exec_builtin(t_node *node, t_env *env)
 		ft_cd(node->tab_exec, env);
 	else if (ft_strcmp(node->tab_exec[0], "pwd") == 0)
 		ft_pwd(node->tab_exec, env);
-	else if (ft_strcmp(node->tab_exec[0], "export") == 0)
-		ft_export(node->tab_exec, env);
+	// else if (ft_strcmp(node->tab_exec[0], "export") == 0)
+	// 	ft_export(node->tab_exec, env);
 	else if (ft_strcmp(node->tab_exec[0], "unset") == 0)
 		ft_unset(node->tab_exec, env);
 	else if (ft_strcmp(node->tab_exec[0], "env") == 0)
@@ -104,7 +104,8 @@ void	execute_command_node(t_node *node, t_env *env, int *fd_in, int is_last)
 		perror("pipe");
 		exit(EXIT_FAILURE);
 	}
-	execute_command(node, fd_in, fd_out, is_last);
+	verify_and_exec_builtin(node, env);
+	//execute_command(node, fd_in, fd_out, is_last);
 	if (!is_last)
 	{
 		close(fd_out[0]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wnguyen <wnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 21:00:04 by wnguyen           #+#    #+#             */
-/*   Updated: 2024/01/21 14:58:30 by wnguyen          ###   ########.fr       */
+/*   Updated: 2024/01/23 12:23:30 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	ft_export(t_node *node, t_env *env)
 	int			i;
 	char		*name;
 	char		*content;
-	t_env_link	*current;
 
 	i = 1;
 	if (!node->tab_exec[1])
@@ -41,7 +40,7 @@ void	ft_export(t_node *node, t_env *env)
 	{
 		if (is_valid_env_name(node->tab_exec[i]))
 		{
-			name = get_env_name(node->tab_exec[i]);
+			name = get_env_name(env, node->tab_exec[i]);
 			content = get_env_content(node->tab_exec[i]);
 			update_env_var(env, name, content);
 			free(name);

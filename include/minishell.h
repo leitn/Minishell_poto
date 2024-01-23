@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 08:31:10 by blax              #+#    #+#             */
-/*   Updated: 2024/01/22 22:32:44 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/23 12:10:53 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,20 @@ void	ft_env(t_node *node, t_env *env);
 void	ft_pwd(t_node *node, t_env *env);
 void	ft_unset(t_node *node, t_env *env);
 void	ft_exit(t_node *node, t_env *env);
-void	ft_export(char **args, t_list **env);
+void	ft_export(t_node *node, t_env *env);
+
+//ft_unet.c util
+int	is_valid_env_name(const char *str);
+
+//env_utils.c
+void	add_env_var(t_env *env, const char *name, const char *content);
+void	update_env_var(t_env *env, const char *name, const char *content);
+char	*get_env_name(t_env *env, const char *name);
+
+//ft_unset.c
+int		is_valid_env_name(const char *str);
+void	unset_error(char *arg);
+void	ft_unset(t_node *node, t_env *env);
 
 // syntax_utils_1.c
 bool is_quote(char c);

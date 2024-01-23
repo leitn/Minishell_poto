@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wnguyen <wnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 20:21:48 by wnguyen           #+#    #+#             */
-/*   Updated: 2024/01/21 14:50:50 by wnguyen          ###   ########.fr       */
+/*   Updated: 2024/01/23 12:06:23 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	is_valid_env_name(const char *str)
+//etait en static int mais pourquoi ? 
+int	is_valid_env_name(const char *str)
 {
 	int	i;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wnguyen <wnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 13:49:07 by wnguyen           #+#    #+#             */
-/*   Updated: 2024/01/21 15:37:54 by wnguyen          ###   ########.fr       */
+/*   Updated: 2024/01/23 12:29:58 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,3 +62,9 @@ char	*get_env_name(t_env *env, const char *name)
 	}
 	return (NULL);
 }
+
+// need will
+// char *get_env_content(t_env *env, const char *content)
+// {
+
+// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edesaint <edesaint@student.42.fr>          +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 16:19:02 by blax              #+#    #+#             */
-/*   Updated: 2024/01/20 16:26:27 by edesaint         ###   ########.fr       */
+/*   Updated: 2024/01/23 11:44:01 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,15 @@ typedef struct s_token
 
 typedef struct s_node
 {
-    int                 id;
-    t_type_node         type;
-    char                **tab_exec;
-    char			    *redir_in;
+	int					id;
+	bool				type;
+	char				**tab_exec;
+	char				*redir_in;
 	char				*redir_out;
 	char				*redir_append;
 	char				*redir_heredoc;
-	struct s_node       *next;
-} t_node;
+	struct s_node		*next;
+}	t_node;
 
 typedef struct s_data
 {

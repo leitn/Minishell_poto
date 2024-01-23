@@ -5,7 +5,7 @@ TEST_DIR = tests/
 OBJ_DIR = obj/
 OBJ_TEST_DIR = obj_tests/
 
-SRC_FILES = off_main.c \
+SRC_FILES = main.c \
 			transform_enum.c \
 			syntax/syntax.c \
 			syntax/syntax_utils_1.c \
@@ -34,14 +34,14 @@ SRC_FILES = off_main.c \
 			error.c \
 			free/free.c \
 			free/free_2.c \
-			# builtins/ft_echo.c \
-			# builtins/ft_env.c \
-			# builtins/ft_exit.c \
-			# builtins/ft_pwd.c \
-			# builtins/ft_unset.c \
+			builtins/ft_echo.c \
+			builtins/ft_env.c \
+			builtins/ft_exit.c \
+			builtins/ft_pwd.c \
+			builtins/ft_unset.c \
 			# builtins/ft_export.c \
-			# exec/exec.c \
-			# exec/file_redir.c \
+			exec/exec.c \
+			exec/file_redir.c \
 
 # TEST_FILES = common/ts_common.c \
 # 			lexer/ts_1.c \
@@ -113,7 +113,7 @@ clean:
 	@${RM} -r $(OBJ_TEST_DIR)
 	# @${RM} $(DEPS)
 	@make -C ${LIBFT_DIR} -f ${LIBFT_MAKE} fclean
-	
+
 fclean: clean
 	@echo $(PURPLE) "[🧹FCleaning...🧹]" $(EOC)
 	@${RM} $(NAME)

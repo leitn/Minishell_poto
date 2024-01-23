@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blax <blax@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: letnitan <letnitan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:23:51 by blax              #+#    #+#             */
-/*   Updated: 2023/12/25 08:05:05 by blax             ###   ########.fr       */
+/*   Updated: 2024/01/23 12:28:03 by letnitan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,29 @@ void handle_signal(int signo)
     }
 }
 
+int ft_main(t_data *data, char *str)
+{
+    init_data(data, str);
+    if (!is_closed_quotes(data))
+        ft_error_2("unclosed quotes");
+    ft_lexer(data);
+    determine_token_types(data);
+    if (!verif_syntax(data->token))
+    {
+        free_tokens(data->token);
+        ft_error_2("syntax_erreur");
+    }
+    expand_tokens(data);
+    parser(data);
+    print_tokens(data->token);
+    print_nodes(data);
+	execute_command_node(data->node)
+    return (0);
+}
+
 int main(int argc, char *argv[])
 {
-    t_tree *tree;
+    t_data data;
     char *command;
 
     if (argc > 1)
@@ -57,32 +77,13 @@ int main(int argc, char *argv[])
         if (command && *command)
         {
             add_history(command);
-            ft_main(tree, command);
+            ft_main(&data, command);
             printf("\n");
         }
         free(command);
     }
     rl_clear_history();
-    free_tree(tree);
-
+	free_all(&data);
     return (0);
 }
 
-int ft_main(t_tree *tree, char *str)
-{
-    t_data *data;
-
-    data = malloc(sizeof(t_data));
-    if (!data)
-        return (0);
-    init_data(data, str);
-    ft_lexer(data);
-    parse_input(data);
-    // print_tokens(data->token);
-    expand_tokens(data);
-    print_expanded_tokens(data->token);
-    print_ast(tree);
-    // print_tokens_for_python(data->token);
-    free_data(data);
-    return (0);
-}
